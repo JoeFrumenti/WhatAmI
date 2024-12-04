@@ -13,8 +13,8 @@ bin/
 obj/
 
 # MonoGame specific
-Content/bin/
-Content/obj/
+bin/
+obj/
 
 # Generated files
 *.pidb

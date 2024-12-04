@@ -8,7 +8,8 @@ namespace WhatAmI
     {
         Texture2D ballTexture;
         Vector2 ballPosition;
-        float ballSpeed;
+        float ballspeed;
+
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
