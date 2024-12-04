@@ -1,0 +1,49 @@
+# Visual Studio-specific
+.vs/
+*.user
+*.suo
+*.vcxproj.user
+*.csproj.user
+*.dbmdl
+*.pfx
+*.publish.xml
+
+# Build artifacts
+bin/
+obj/
+
+# MonoGame specific
+Content/bin/
+Content/obj/
+
+# Generated files
+*.pidb
+*.sln.docstates
+*.log
+*.sdf
+*.opendb
+*.opensdf
+*.idea/
+.idea
+*.ipch
+*.tmp
+
+# Package management
+packages/
+*.nupkg
+project.lock.json
+project.fragment.lock.json
+artifacts/
+*.vsix
+*.swp
+.DS_Store
+
+# Additional files
+Thumbs.db
+*.bak
+*.orig
+*.rej
+*.userprefs
+*.pyc
+*.pyo
+*.class
