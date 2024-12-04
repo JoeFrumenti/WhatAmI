@@ -24,3 +24,4 @@ C:\Users\joefr\source\repos\WhatAmI\obj\Debug\net8.0\WhatAmI.pdb
 C:\Users\joefr\source\repos\WhatAmI\obj\Debug\net8.0\WhatAmI.genruntimeconfig.cache
 C:\Users\joefr\source\repos\WhatAmI\obj\Debug\net8.0\ref\WhatAmI.dll
 C:\Users\joefr\source\repos\WhatAmI\bin\Debug\net8.0\Content\ball.xnb
+C:\Users\joefr\source\repos\WhatAmI\obj\Debug\net8.0\WhatAmI.sourcelink.json
