@@ -50,22 +50,22 @@ namespace WhatAmI
             }
 
 
-            if (pos.X > _graphics.PreferredBackBufferWidth - texture.Width / 2)
+            if (pos.X > _graphics.PreferredBackBufferWidth - texture.Width)
             {
-                pos.X = _graphics.PreferredBackBufferWidth - texture.Width / 2;
+                pos.X = _graphics.PreferredBackBufferWidth - texture.Width;
             }
-            else if (pos.X < texture.Width / 2)
+            else if (pos.X < 0)
             {
-                pos.X = texture.Width / 2;
+                pos.X = 0;
             }
 
-            if (pos.Y > _graphics.PreferredBackBufferHeight - texture.Height / 2)
+            if (pos.Y > _graphics.PreferredBackBufferHeight - texture.Height)
             {
-                pos.Y = _graphics.PreferredBackBufferHeight - texture.Height / 2;
+                pos.Y = _graphics.PreferredBackBufferHeight - texture.Height;
             }
-            else if (pos.Y < texture.Height / 2)
+            else if (pos.Y < 0)
             {
-                pos.Y = texture.Height / 2;
+                pos.Y = 0;
             }
         }
     }

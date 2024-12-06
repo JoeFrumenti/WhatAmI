@@ -38,7 +38,7 @@ namespace WhatAmI
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             
             // TODO: use this.Content to load your game content here
-            ballTexture = Content.Load<Texture2D>("ball");
+            ballTexture = Content.Load<Texture2D>("assets/ball");
             player = new Player(ballTexture);
         }
 
@@ -58,7 +58,7 @@ namespace WhatAmI
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             _spriteBatch.Begin();
-            _spriteBatch.Draw(player.getTex(), player.getPos(), null, Color.White, 0f, new Vector2(ballTexture.Width/2,ballTexture.Height/2),Vector2.One,SpriteEffects.None,0f);
+            _spriteBatch.Draw(player.getTex(), player.getPos(), Color.White);
             _spriteBatch.End();
 
 
