@@ -10,7 +10,7 @@ namespace WhatAmI
         string assetPath = "C:\\Users\\joefr\\source\\repos\\WhatAmI\\Content\\assets\\";
         Texture2D ballTexture;
         Player player;
-
+        GraphicsManager graphicsManager;
 
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
@@ -39,10 +39,11 @@ namespace WhatAmI
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            using (var stream = File.OpenRead(assetPath + "green16.png"))
-            {
-                ballTexture = Texture2D.FromStream(GraphicsDevice, stream);
-            }
+
+            graphicsManager = new GraphicsManager(_graphics, GraphicsDevice);
+            ballTexture = graphicsManager.generateTexture("green16.png");
+
+
             player = new Player(ballTexture);
         }
 
