@@ -1,12 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
+using System.IO;
 
 namespace WhatAmI
 {
     public class Game1 : Game
     {
+        string assetPath = "C:\\Users\\joefr\\source\\repos\\WhatAmI\\Content\\assets\\";
         Texture2D ballTexture;
         Player player;
 
@@ -36,9 +37,12 @@ namespace WhatAmI
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            
+
             // TODO: use this.Content to load your game content here
-            ballTexture = Content.Load<Texture2D>("assets/ball");
+            using (var stream = File.OpenRead(assetPath + "green16.png"))
+            {
+                ballTexture = Texture2D.FromStream(GraphicsDevice, stream);
+            }
             player = new Player(ballTexture);
         }
 
