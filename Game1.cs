@@ -29,22 +29,15 @@ namespace WhatAmI
 
         protected override void Initialize()
         {
-            
-            
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            graphicsManager = new GraphicsManager(_graphics, GraphicsDevice);
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
-
-            graphicsManager = new GraphicsManager(_graphics, GraphicsDevice);
-            ballTexture = graphicsManager.generateTexture("green16.png");
-
-
-            player = new Player(ballTexture);
+            
+            player = new Player(graphicsManager.generateTexture("green16.png"));
         }
 
         protected override void Update(GameTime gameTime)
@@ -62,7 +55,8 @@ namespace WhatAmI
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            _spriteBatch.Begin();
+            graphicsManager.setScale(2);
+            _spriteBatch.Begin(transformMatrix: graphicsManager.getScale());
             _spriteBatch.Draw(player.getTex(), player.getPos(), Color.White);
             _spriteBatch.End();
 
