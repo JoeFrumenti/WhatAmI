@@ -11,14 +11,17 @@ namespace WhatAmI
     internal class GameObject
     {
         public Renderer renderer{  get; private set; }
-        public Vector2 position { get; private set; }
+        public Vector2 Position { get; private set; }
         public GameObject(Texture2D texture, Vector2 position)
         {
             renderer = new Renderer(texture);
-            this.position = position;
+            this.Position = position;
         }
         
-
+        internal void Update(GameTime gameTime)
+        {
+            Position += new Vector2(1,0);
+        }
 
         internal void draw(SpriteBatch sb)
         {
@@ -26,7 +29,7 @@ namespace WhatAmI
                 Console.WriteLine("Null, but drawing object with graphics device anyways!");
             else
             {
-                renderer.draw(sb, position);
+                renderer.draw(sb, Position);
             }
         }
     }

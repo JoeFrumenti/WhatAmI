@@ -5,12 +5,13 @@ using Microsoft.Xna.Framework.Graphics;
 using System.IO;
 using System.Numerics;
 using System;
+using Microsoft.Xna.Framework.Content;
 
 namespace WhatAmI
 {
     internal class GraphicsManager
     {
-        string assetPath = "C:\\Users\\joefr\\source\\repos\\WhatAmI\\Content\\assets\\";
+        string assetPath = "C:\\Users\\joefr\\source\\repos\\WhatAmI\\Content\\assets\\textures\\";
         
         Matrix scale = Matrix.CreateScale(1, 1, 1);
         private Game1 game;
@@ -26,7 +27,7 @@ namespace WhatAmI
         internal void setPlayer()
         {
 
-            player = new Player(generateTexture("green16.png"));
+            player = new Player(generateTexture("env\\green16.png"));
         }
         internal void setGametime(GameTime gametime)
         {
@@ -65,16 +66,34 @@ namespace WhatAmI
         }
         internal Texture2D generateTexture(string filePath)
         {
+            try { 
+                Texture2D tempTex = null;
+                SpriteBatch _spriteBatch = new SpriteBatch(game.GraphicsDevice);
+
+                // TODO: use this.Content to load your game content here
+                using (var stream = File.OpenRead(assetPath + filePath))
+                {
+                    tempTex = Texture2D.FromStream(game.GraphicsDevice, stream);
+                }
+                return tempTex;
+        
+            }
+        catch (FileNotFoundException){ 
+                Console.WriteLine($"Error: Unable to load texture at 'Textures/{filePath}'. Returning a default texture");
+                return generateFallbackTexture();
+            }
+        }
+
+        private Texture2D generateFallbackTexture() {
             Texture2D tempTex = null;
             SpriteBatch _spriteBatch = new SpriteBatch(game.GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            using (var stream = File.OpenRead(assetPath + "green16.png"))
+            using (var stream = File.OpenRead(assetPath + "general\\fallback.png"))
             {
                 tempTex = Texture2D.FromStream(game.GraphicsDevice, stream);
             }
             return tempTex;
         }
-
     }
 }
