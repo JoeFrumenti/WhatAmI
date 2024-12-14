@@ -8,36 +8,28 @@ namespace WhatAmI
     public class Game1 : Game
     {
         string assetPath = "C:\\Users\\joefr\\source\\repos\\WhatAmI\\Content\\assets\\";
-        Texture2D ballTexture;
-        Player player;
-        GraphicsManager graphicsManager;
+        
+        internal GraphicsManager graphicsManager;
+        GameObject gameObject =  new GameObject();
 
-        private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
+        internal GraphicsDeviceManager graphics;
+        internal SpriteBatch spriteBatch;
 
         public Game1()
         {
-            _graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
-            IsMouseVisible = true;
-
-            _graphics.IsFullScreen = true;
-
-            _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            graphicsManager = new GraphicsManager(this);
+            graphicsManager.init();
+            
         }
 
         protected override void Initialize()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-            graphicsManager = new GraphicsManager(_graphics, GraphicsDevice);
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            
-            player = new Player(graphicsManager.generateTexture("green16.png"));
+            graphicsManager.setPlayer();
         }
 
         protected override void Update(GameTime gameTime)
@@ -45,7 +37,7 @@ namespace WhatAmI
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            player.runControls(gameTime, _graphics);
+            
 
 
             base.Update(gameTime);
@@ -53,12 +45,11 @@ namespace WhatAmI
 
         protected override void Draw(GameTime gameTime)
         {
+            gameObject.renderer.draw();
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            graphicsManager.setGametime(gameTime);
             graphicsManager.setScale(2);
-            _spriteBatch.Begin(transformMatrix: graphicsManager.getScale());
-            _spriteBatch.Draw(player.getTex(), player.getPos(), Color.White);
-            _spriteBatch.End();
+            graphicsManager.draw();
 
 
             base.Draw(gameTime);
