@@ -25,8 +25,10 @@ namespace WhatAmI
         internal GameObject player;
 
         //text
+        private KeyboardState previousKeyBoardState;
         private SpriteFont font;
         private StringBuilder textInput = new StringBuilder();
+        private string userInput = "";
 
         public Game1()
         {
@@ -71,10 +73,36 @@ namespace WhatAmI
 
         protected override void Draw(GameTime gameTime)
         {
+           var keyboardState = Keyboard.GetState();
+
+            foreach (var key in keyboardState.GetPressedKeys())
+            {
+                if (!previousKeyBoardState.IsKeyDown(key))
+                {
+                        if (key == Keys.Back && userInput.Length > 0)
+                    {
+                        // Handle backspace
+                        userInput = userInput[..^1];
+                    }
+                    else if (key == Keys.Space)
+                    {
+                        // Add a space
+                        userInput += " ";
+                    }
+                    else if (key >= Keys.A && key <= Keys.Z)
+                    {
+                        // Add letter (capitalize by default, can adjust for lowercase)
+                        userInput += key.ToString();
+                    }
+                }
+            }
+            previousKeyBoardState = keyboardState;
+
             GraphicsDevice.Clear(Color.CornflowerBlue);
            
+
             spriteBatch.Begin();
-            spriteBatch.DrawString(font, "sup, world!", new Vector2(10, 10), Color.White);
+            spriteBatch.DrawString(font, userInput, new Vector2(10, 10), Color.White);
 
             foreach (var gameObject in gameObjects)
             {
