@@ -13,10 +13,10 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin SampleFont.spritefont
+#begin fonts/Courier.spritefont
 /importer:FontDescriptionImporter
-/processor:LocalizedFontProcessor
+/processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
-/build:SampleFont.spritefont
+/build:fonts/Courier.spritefont
 
