@@ -23,7 +23,7 @@ namespace WhatAmI
             Position += new Vector2(1,0);
         }
 
-        internal void draw(SpriteBatch sb)
+        internal void Draw(SpriteBatch sb)
         {
             if (sb == null)
                 Console.WriteLine("Null, but drawing object with graphics device anyways!");

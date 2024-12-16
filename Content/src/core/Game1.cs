@@ -9,6 +9,10 @@ namespace WhatAmI
 {
     public class Game1 : Game
     {
+        //Singleton
+        private static Game1 _instance;
+        public static Game1 Instance => _instance;
+
         //assets
         string assetPath = "C:\\Users\\joefr\\source\\repos\\WhatAmI\\Content\\assets\\";
         private Texture2D _mySprite;
@@ -16,8 +20,8 @@ namespace WhatAmI
         
 
         //graphics
-        internal GraphicsManager graphicsManager;
-        internal GraphicsDeviceManager graphics;
+        internal GraphicsManager _graphicsManager;
+        internal GraphicsDeviceManager _graphics;
 
         //objects
         private List<GameObject> gameObjects;
@@ -26,31 +30,37 @@ namespace WhatAmI
 
         //text
         private KeyboardState previousKeyBoardState;
-        private SpriteFont font;
         private StringBuilder textInput = new StringBuilder();
         private string userInput = "";
+        private TextHandler textHandler;
+
+        //scenes
+        private SceneManager sceneManager;
 
         public Game1()
         {
-            graphicsManager = new GraphicsManager(this);
-            graphicsManager.init();
+            _instance = this;
+            _graphicsManager = new GraphicsManager(this);
+            _graphicsManager.init();
+            IsMouseVisible = true;
             
         }
 
         protected override void Initialize()
         {
             base.Initialize();
+            sceneManager = new SceneManager();
         }
 
         protected override void LoadContent()
         {
-            graphicsManager.setPlayer();
+            _graphicsManager.setPlayer();
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            _mySprite = graphicsManager.generateTexture("env\\green16.png");
+            _mySprite = _graphicsManager.generateTexture("env\\green16.png");
             player = new GameObject(_mySprite, new Vector2(200, 200));
             gameObjects = new List<GameObject>();
             gameObjects.Add(player);
-            font = Content.Load<SpriteFont>("fonts/Courier");
+            textHandler = new TextHandler(Content.Load<SpriteFont>("fonts/Courier"));
         }
 
         protected override void Update(GameTime gameTime)
@@ -73,41 +83,21 @@ namespace WhatAmI
 
         protected override void Draw(GameTime gameTime)
         {
+            //inital stuff
            var keyboardState = Keyboard.GetState();
-
-            foreach (var key in keyboardState.GetPressedKeys())
-            {
-                if (!previousKeyBoardState.IsKeyDown(key))
-                {
-                        if (key == Keys.Back && userInput.Length > 0)
-                    {
-                        // Handle backspace
-                        userInput = userInput[..^1];
-                    }
-                    else if (key == Keys.Space)
-                    {
-                        // Add a space
-                        userInput += " ";
-                    }
-                    else if (key >= Keys.A && key <= Keys.Z)
-                    {
-                        // Add letter (capitalize by default, can adjust for lowercase)
-                        userInput += key.ToString();
-                    }
-                }
-            }
-            previousKeyBoardState = keyboardState;
-
             GraphicsDevice.Clear(Color.CornflowerBlue);
            
-
+            
             spriteBatch.Begin();
-            spriteBatch.DrawString(font, userInput, new Vector2(10, 10), Color.White);
+            //text
+            textHandler.Update(gameTime);
+            textHandler.Draw(spriteBatch, new Vector2(100,100), Color.White);
 
+            //gameobjects
             foreach (var gameObject in gameObjects)
             {
                 gameObject.Update(gameTime);
-                gameObject.draw(spriteBatch);
+                gameObject.Draw(spriteBatch);
             }
             spriteBatch.End();
 
