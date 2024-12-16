@@ -12,11 +12,11 @@ namespace WhatAmI
 {
     public class MainMenuScene : Scene
     {
-        private SpriteFont font;
+        private SpriteFont _font;
         public override void LoadContent()
         {
             // Load the font (ensure it's added to the Content Pipeline first)
-            font = Game1.Instance.Content.Load<SpriteFont>("FontName");
+            _font = Game1.Instance.Content.Load<SpriteFont>("fonts/Courier");
         }
 
         public override void Update(GameTime gameTime)
@@ -31,7 +31,7 @@ namespace WhatAmI
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
-            spriteBatch.DrawString(font, "Press Enter to Play", new Vector2(100, 100), Color.White);
+            spriteBatch.DrawString(_font, "Press Enter to Play", new Vector2(100, 100), Color.White);
             spriteBatch.End();
         }
 

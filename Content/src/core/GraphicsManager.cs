@@ -43,20 +43,20 @@ namespace WhatAmI
         }
 
         internal void init() {
-            game.graphics = new GraphicsDeviceManager(game);
+            game._graphics = new GraphicsDeviceManager(game);
             game.Content.RootDirectory = "Content";
             game.IsMouseVisible = true;
 
-            game.graphics.IsFullScreen = true;
+            game._graphics.IsFullScreen = true;
 
-            game.graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-            game.graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+            game._graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+            game._graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
         }
 
         internal void draw()
         {
 
-            player.runControls(gameTime, game.graphics);
+            player.runControls(gameTime, game._graphics);
 
             setScale(2);
             spriteBatch = new SpriteBatch(game.GraphicsDevice);

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using WhatAmI.Content.src.scenes;
 
 namespace WhatAmI
 {
@@ -35,7 +36,7 @@ namespace WhatAmI
         private TextHandler textHandler;
 
         //scenes
-        private SceneManager sceneManager;
+        private SceneManager _sceneManager;
 
         public Game1()
         {
@@ -49,7 +50,11 @@ namespace WhatAmI
         protected override void Initialize()
         {
             base.Initialize();
-            sceneManager = new SceneManager();
+            _sceneManager = new SceneManager();
+            _sceneManager.AddScene("MainMenu", new MainMenuScene());
+            _sceneManager.AddScene("GamePlay", new GamePlayScene());
+            _sceneManager.SetActiveScene("MainMenu");
+
         }
 
         protected override void LoadContent()
@@ -78,6 +83,8 @@ namespace WhatAmI
 
             }
 
+            textHandler.Update(gameTime);
+            _sceneManager.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -86,11 +93,16 @@ namespace WhatAmI
             //inital stuff
            var keyboardState = Keyboard.GetState();
             GraphicsDevice.Clear(Color.CornflowerBlue);
-           
-            
+
+            _sceneManager.Draw(spriteBatch);
+
             spriteBatch.Begin();
+
+
+            //scene
+
+
             //text
-            textHandler.Update(gameTime);
             textHandler.Draw(spriteBatch, new Vector2(100,100), Color.White);
 
             //gameobjects

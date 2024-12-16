@@ -13,7 +13,7 @@ namespace WhatAmI
         private Dictionary<string, Scene> scenes = new Dictionary<string, Scene>();
         private Scene activeScene;
 
-        private SceneManager() { 
+        internal SceneManager() { 
             _instance = this;
         }
 
