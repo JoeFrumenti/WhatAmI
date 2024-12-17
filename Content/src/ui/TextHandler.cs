@@ -113,13 +113,25 @@ public class TextHandler
             case Keys.Z: return isShiftDown ? "Z" : "z";
 
             // Handle other punctuation with Shift (e.g., `@`, `$`, etc.)
-            //case Keys.LeftBracket: return isShiftDown ? "{" : "[";
-            //case Keys.RightBracket: return isShiftDown ? "}" : "]";
-            //case Keys.Backslash: return isShiftDown ? "|" : "\\";
-            //case Keys.Slash: return isShiftDown ? "?" : "/";
-            //case Keys.Equals: return isShiftDown ? "+" : "=";
-            //case Keys.Hyphen: return isShiftDown ? "_" : "-";
+            case Keys.OemOpenBrackets: return isShiftDown ? "{" : "[";
+            case Keys.OemCloseBrackets: return isShiftDown ? "}" : "]";
 
+            // Backslash
+            case Keys.OemPipe: return isShiftDown ? "|" : "\\";
+
+            // Slash
+            case Keys.OemQuestion: return isShiftDown ? "?" : "/";
+
+            // Equals
+            case Keys.OemPlus: return isShiftDown ? "+" : "=";
+
+            // Hyphen
+            case Keys.OemMinus: return isShiftDown ? "_" : "-";
+            case Keys.OemComma: return isShiftDown ? "<" : ",";
+            case Keys.OemPeriod: return isShiftDown ? ">" : ".";
+            case Keys.OemSemicolon: return isShiftDown ? ":" : ";";
+            case Keys.OemTilde: return isShiftDown ? "~" : "`";
+            case Keys.OemQuotes: return isShiftDown ? "\"" : "'";
             default: return null;  // Ignore any other keys
         }
     }
