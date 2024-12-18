@@ -65,7 +65,7 @@ namespace WhatAmI
             player = new GameObject(_mySprite, new Vector2(200, 200));
             gameObjects = new List<GameObject>();
             gameObjects.Add(player);
-            textHandler = new TextHandler(Content.Load<SpriteFont>("fonts/Courier"));
+            textHandler = new TextHandler(Content.Load<SpriteFont>("fonts/Courier"), new Vector2(100,100));
             Texture2D blankTexture= new Texture2D(GraphicsDevice, 1, 1);
             blankTexture.SetData(new[] { Color.White });
         }
@@ -85,7 +85,7 @@ namespace WhatAmI
 
             }
 
-            textHandler.Update(gameTime);
+            textHandler.Update(gameTime, spriteBatch);
             _sceneManager.Update(gameTime);
             base.Update(gameTime);
         }
@@ -105,7 +105,9 @@ namespace WhatAmI
 
 
             //text
-            textHandler.Draw(spriteBatch, new Vector2(100,100), Color.White);
+            textHandler.Update(gameTime, spriteBatch);
+
+            textHandler.Draw(spriteBatch, Color.White);
             textHandler.DrawCursor(spriteBatch);
 
             //gameobjects

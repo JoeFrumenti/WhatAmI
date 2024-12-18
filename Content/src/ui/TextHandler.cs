@@ -17,12 +17,14 @@ public class TextHandler
     private double cursorBlinkTimer = 0;
     private bool showCursor = true;
 
+    private Vector2 anchor;
 
 
 
-    public TextHandler(SpriteFont font)
+    public TextHandler(SpriteFont font, Vector2 anch)
     {
         this.font = font;
+        this.anchor = anch;
     }
 
     public void DrawCursor(SpriteBatch spriteBatch)
@@ -49,7 +51,7 @@ public class TextHandler
         }
     }
 
-    public void Update(GameTime gameTime)
+    public void Update(GameTime gameTime,SpriteBatch spriteBatch)
     {
         KeyboardState state = Keyboard.GetState();
 
@@ -66,30 +68,11 @@ public class TextHandler
             }
 
             
-            
-            //    else if (key == Keys.Space)
-            //    {
-            //        text += " "; // Add a space
-            //    }
-            //    else if (key >= Keys.A && key <= Keys.Z)
-            //    {
-            //        text += key.ToString(); // Add the pressed letter
-            //    }
-            //    else if (key >= Keys.D0 && key <= Keys.D9)
-            //    {
-            //        // Add numbers
-            //        text += key.ToString().Replace("D", ""); // Remove "D" prefix from number keys
-            //    }
-            //    else if (key >= Keys.NumPad0 && key <= Keys.NumPad9)
-            //    {
-            //        // Add numbers from NumPad
-            //        text += ((int)(key - Keys.NumPad0)).ToString();
-            //    }
 
         }
         previousKeyboardState = state;
 
-
+        
     }
     private string GetCharacterFromKey(Keys key, KeyboardState keyboardState)
     {
@@ -100,10 +83,6 @@ public class TextHandler
 
             case Keys.Back: {if (text.Length > 0) text = text[..^1]; return null;}
             case Keys.Space: return " ";
-            //case Keys.Comma: return isShiftDown ? "<" : ",";
-            //case Keys.Period: return isShiftDown ? ">" : ".";
-            //case Keys.Semicolon: return isShiftDown ? ":" : ";";
-            //case Keys.Quote: return isShiftDown ? "\"" : "'";
 
             // Handling numbers with Shift
             case Keys.D0: return isShiftDown ? ")" : "0";
@@ -168,8 +147,9 @@ public class TextHandler
             default: return null;  // Ignore any other keys
         }
     }
-    public void Draw(SpriteBatch spriteBatch, Vector2 position, Color color)
+    public void Draw(SpriteBatch spriteBatch, Color color)
     {
-        spriteBatch.DrawString(font, text, position, color);
+        DrawCursor(spriteBatch);
+        spriteBatch.DrawString(font, text, anchor, color);
     }
 }
