@@ -66,6 +66,8 @@ namespace WhatAmI
             gameObjects = new List<GameObject>();
             gameObjects.Add(player);
             textHandler = new TextHandler(Content.Load<SpriteFont>("fonts/Courier"));
+            Texture2D blankTexture= new Texture2D(GraphicsDevice, 1, 1);
+            blankTexture.SetData(new[] { Color.White });
         }
 
         protected override void Update(GameTime gameTime)
@@ -104,6 +106,7 @@ namespace WhatAmI
 
             //text
             textHandler.Draw(spriteBatch, new Vector2(100,100), Color.White);
+            textHandler.DrawCursor(spriteBatch);
 
             //gameobjects
             foreach (var gameObject in gameObjects)

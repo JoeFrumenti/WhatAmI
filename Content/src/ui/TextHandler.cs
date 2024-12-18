@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace WhatAmI;
 public class TextHandler
@@ -9,23 +10,55 @@ public class TextHandler
     private string text = "";
     private KeyboardState previousKeyboardState;
 
+    //cursor stuff
+    private int cursorX = 0; // Horizontal position in the line
+    private int cursorY = 0; // Vertical position (line number)
+    private List<string> textBuffer = new List<string>() { "" }; // Lines of text
+    private double cursorBlinkTimer = 0;
+    private bool showCursor = true;
+
+
+
+
     public TextHandler(SpriteFont font)
     {
         this.font = font;
     }
 
+    public void DrawCursor(SpriteBatch spriteBatch)
+    {
+        cursorBlinkTimer += 0.05; // Adjust for blink speed
+
+        if (cursorBlinkTimer >= 1.0)
+        {
+            showCursor = !showCursor; // Toggle cursor visibility
+            cursorBlinkTimer = 0;
+        }
+
+        if (showCursor)
+        {
+            // Calculate cursor position
+            string textLine = textBuffer[cursorY].Substring(0, cursorX);
+            Vector2 cursorPosition = new Vector2(font.MeasureString(textLine).X, font.LineSpacing * cursorY);
+
+            // Draw cursor (a simple rectangle)
+            Texture2D cursorTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
+            cursorTexture.SetData(new[] { Color.White });
+
+            spriteBatch.Draw(cursorTexture, new Rectangle((int)cursorPosition.X, (int)cursorPosition.Y, 2, font.LineSpacing), Color.White);
+        }
+    }
+
     public void Update(GameTime gameTime)
     {
-        var currentKeyboardState = Keyboard.GetState();
+        KeyboardState state = Keyboard.GetState();
 
-        foreach (var key in currentKeyboardState.GetPressedKeys())
+        foreach (var key in state.GetPressedKeys())
         {
             if (previousKeyboardState.IsKeyDown(key)) continue;
-
-
             // Check if the key is a letter, number, or punctuation
 
-            string character = GetCharacterFromKey(key, currentKeyboardState);
+            string character = GetCharacterFromKey(key, state);
 
             if (!string.IsNullOrEmpty(character))
             {
@@ -54,7 +87,7 @@ public class TextHandler
             //    }
 
         }
-        previousKeyboardState = currentKeyboardState;
+        previousKeyboardState = state;
 
 
     }
