@@ -11,11 +11,12 @@ public class TextHandler
     private KeyboardState previousKeyboardState;
 
     //cursor stuff
-    private int cursorX = 0; // Horizontal position in the line
-    private int cursorY = 0; // Vertical position (line number)
+    private float cursorX = 0; // Horizontal position in the line
+    private float cursorY = 0; // Vertical position (line number)
     private List<string> textBuffer = new List<string>() { "" }; // Lines of text
     private double cursorBlinkTimer = 0;
     private bool showCursor = true;
+    private float textWidth;
 
     private Vector2 anchor;
 
@@ -29,7 +30,7 @@ public class TextHandler
 
     public void DrawCursor(SpriteBatch spriteBatch)
     {
-        cursorBlinkTimer += 0.05; // Adjust for blink speed
+        cursorBlinkTimer += 0.02; // Adjust for blink speed
 
         if (cursorBlinkTimer >= 1.0)
         {
@@ -40,14 +41,16 @@ public class TextHandler
         if (showCursor)
         {
             // Calculate cursor position
-            string textLine = textBuffer[cursorY].Substring(0, cursorX);
+            string textLine = textBuffer[(int)cursorY].Substring(0, (int)cursorX);
             Vector2 cursorPosition = new Vector2(font.MeasureString(textLine).X, font.LineSpacing * cursorY);
 
             // Draw cursor (a simple rectangle)
             Texture2D cursorTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
             cursorTexture.SetData(new[] { Color.White });
 
-            spriteBatch.Draw(cursorTexture, new Rectangle((int)cursorPosition.X, (int)cursorPosition.Y, 2, font.LineSpacing), Color.White);
+            textWidth = font.MeasureString(text).X;
+
+            spriteBatch.Draw(cursorTexture, new Rectangle((int)anchor.X + (int)textWidth, (int)anchor.Y, 2, font.LineSpacing), Color.White);
         }
     }
 
