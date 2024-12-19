@@ -83,6 +83,7 @@ public class TextHandler
     {
         Console.WriteLine(x);
         xOffset += x;
+        xOffset = Math.Clamp(xOffset, -1 * text.Length,0);
     }
 
     private void getCursorMovement(Keys key)
