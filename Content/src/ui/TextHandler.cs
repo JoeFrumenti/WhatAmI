@@ -12,12 +12,13 @@ public class TextHandler
     private KeyboardState previousKeyboardState;
 
     //cursor stuff
-    private float cursorX = 0; // Horizontal position in the line
+    private int xOffset = 0; // Horizontal position in the line
     private float cursorY = 0; // Vertical position (line number)
     private List<string> textBuffer = new List<string>() { "" }; // Lines of text
     private double cursorBlinkTimer = 0;
     private bool showCursor = true;
     private float textWidth;
+
 
     private Vector2 anchor;
 
@@ -41,17 +42,14 @@ public class TextHandler
 
         if (showCursor)
         {
-            // Calculate cursor position
-            string textLine = textBuffer[(int)cursorY].Substring(0, (int)cursorX);
-            Vector2 cursorPosition = new Vector2(font.MeasureString(textLine).X, font.LineSpacing * cursorY);
 
             // Draw cursor (a simple rectangle)
             Texture2D cursorTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
             cursorTexture.SetData(new[] { Color.White });
 
-            textWidth = font.MeasureString(text).X;
+            textWidth = font.MeasureString(text.Substring(0,text.Length-xOffset)).X;
 
-            spriteBatch.Draw(cursorTexture, new Rectangle((int)anchor.X + (int)textWidth, (int)anchor.Y, 2, font.LineSpacing), Color.White);
+            spriteBatch.Draw(cursorTexture, new Rectangle((int)anchor.X + (int)textWidth - (int)xOffset, (int)anchor.Y, 2, font.LineSpacing), Color.White);
         }
     }
 
@@ -84,6 +82,7 @@ public class TextHandler
     private void moveCursor(int x, int y)
     {
         Console.WriteLine(x);
+        xOffset += x;
     }
 
     private void getCursorMovement(Keys key)
