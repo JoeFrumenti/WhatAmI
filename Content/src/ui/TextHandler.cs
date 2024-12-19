@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 
 namespace WhatAmI;
@@ -63,6 +64,8 @@ public class TextHandler
             if (previousKeyboardState.IsKeyDown(key)) continue;
             // Check if the key is a letter, number, or punctuation
 
+            getCursorMovement(key);
+
             string character = GetCharacterFromKey(key, state);
 
             if (!string.IsNullOrEmpty(character))
@@ -77,12 +80,31 @@ public class TextHandler
 
         
     }
+
+    private void moveCursor(int x, int y)
+    {
+        Console.WriteLine(x);
+    }
+
+    private void getCursorMovement(Keys key)
+    {
+        switch(key)
+        {
+            case Keys.Left: 
+                moveCursor(-1,0); 
+                break;
+            case Keys.Right: 
+                moveCursor(1,0); 
+                break;
+        }
+    }
     private string GetCharacterFromKey(Keys key, KeyboardState keyboardState)
     {
         bool isShiftDown = keyboardState.IsKeyDown(Keys.LeftShift) || keyboardState.IsKeyDown(Keys.RightShift);
 
         switch (key)
         { 
+            
 
             case Keys.Back: {if (text.Length > 0) text = text[..^1]; return null;}
             case Keys.Space: return " ";
