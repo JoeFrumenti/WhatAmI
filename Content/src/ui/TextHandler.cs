@@ -68,7 +68,7 @@ public class TextHandler
 
             if (!string.IsNullOrEmpty(character))
             {
-                text += character;  // Add the character to your text
+                text = text.Insert(text.Length + xOffset, character);  // Add the character to your text
             }
 
             
@@ -106,7 +106,7 @@ public class TextHandler
         { 
             
 
-            case Keys.Back: {if (text.Length > 0) text = text[..^1]; return null;}
+            case Keys.Back: {if (text.Length > 0) text = text.Remove(text.Length + xOffset - 1, 1); return null;}
             case Keys.Space: return " ";
 
             // Handling numbers with Shift
