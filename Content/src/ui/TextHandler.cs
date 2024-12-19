@@ -47,9 +47,9 @@ public class TextHandler
             Texture2D cursorTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
             cursorTexture.SetData(new[] { Color.White });
 
-            textWidth = font.MeasureString(text.Substring(0,text.Length-xOffset)).X;
+            textWidth = font.MeasureString(text.Substring(0, text.Length+xOffset)).X;
 
-            spriteBatch.Draw(cursorTexture, new Rectangle((int)anchor.X + (int)textWidth - (int)xOffset, (int)anchor.Y, 2, font.LineSpacing), Color.White);
+            spriteBatch.Draw(cursorTexture, new Rectangle((int)anchor.X + (int)textWidth, (int)anchor.Y, 2, font.LineSpacing), Color.White);
         }
     }
 
