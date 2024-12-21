@@ -13,8 +13,6 @@ public class TextHandler
 
     //cursor stuff
     private int xOffset = 0; // Horizontal position in the line
-    private float cursorY = 0; // Vertical position (line number)
-    private List<string> textBuffer = new List<string>() { "" }; // Lines of text
     private double cursorBlinkTimer = 0;
     private bool showCursor = true;
     private float textWidth;
@@ -81,7 +79,6 @@ public class TextHandler
 
     private void moveCursor(int x, int y)
     {
-        Console.WriteLine(x);
         xOffset += x;
         xOffset = Math.Clamp(xOffset, -1 * text.Length,0);
     }
