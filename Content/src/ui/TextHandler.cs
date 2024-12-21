@@ -104,6 +104,14 @@ public class TextHandler
             xOffset--;
         }
     }
+
+    private void handleEnter()
+    {
+        lines.Insert(yOffset + 1,lines[yOffset].Substring(xOffset));
+        lines[yOffset] = lines[yOffset].Substring(0, xOffset);
+        xOffset = 0;
+        yOffset++;
+    }
    
     private string ReadKey(Keys key, KeyboardState keyboardState)
     {
@@ -112,10 +120,7 @@ public class TextHandler
         switch (key)
         {
             case Keys.Enter:
-                Console.WriteLine("Enter!");
-                lines.Add("");
-                xOffset = 0;
-                yOffset++;
+                handleEnter();
                 return null;
 
             case Keys.Up:
