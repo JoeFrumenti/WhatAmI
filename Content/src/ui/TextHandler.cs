@@ -46,7 +46,7 @@ public class TextHandler
             Texture2D cursorTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
             cursorTexture.SetData(new[] { Color.White });
 
-            textWidth = font.MeasureString(lines[0].Substring(0, lines[0].Length+xOffset)).X;
+            textWidth = font.MeasureString(lines[index].Substring(0, xOffset)).X;
 
             spriteBatch.Draw(cursorTexture, new Rectangle((int)anchor.X + (int)textWidth, (int)anchor.Y, 2, font.LineSpacing), Color.White);
         }
@@ -67,7 +67,8 @@ public class TextHandler
 
             if (!string.IsNullOrEmpty(character))
             {
-                lines[0] = lines[0].Insert(lines[0].Length + xOffset, character);  // Add the character to your text
+                lines[index] = lines[index].Insert(xOffset, character);  // Add the character to your text
+                xOffset ++;
             }
 
             
@@ -81,7 +82,7 @@ public class TextHandler
     private void moveCursor(int x, int y)
     {
         xOffset += x;
-        xOffset = Math.Clamp(xOffset, -1 * lines[0].Length,0);
+        xOffset = Math.Clamp(xOffset, 0, lines[index].Length);
     }
 
     private void getCursorMovement(Keys key)
@@ -104,7 +105,13 @@ public class TextHandler
         { 
             
 
-            case Keys.Back: {if (lines[0].Length > 0) lines[0] = lines[0].Remove(lines[0].Length + xOffset - 1, 1); return null;}
+            case Keys.Back: {
+                                if (lines[index].Length > 0 && xOffset > 0) { 
+                                    lines[index] = lines[index].Remove(xOffset - 1, 1); 
+                                    xOffset --;
+                                    }
+                                return null;
+                }
             case Keys.Space: return " ";
 
             // Handling numbers with Shift
