@@ -13,7 +13,7 @@ public class TextHandler
     
     //
     private int yOffset = 0;   //vertical position
-    private int xOffset = 0; // Horizontal position in the line
+    private int xOffset = 0;   // Horizontal position in the line
     private int textHeight = 20;
    
     
@@ -85,6 +85,25 @@ public class TextHandler
 
     }
 
+    private void handleBackspace()
+    {
+        //top left, do nothing
+        if (yOffset == 0 &&  xOffset == 0) return;
+        //far left, delete line break
+        else if(xOffset == 0)
+        {
+            xOffset = lines[yOffset - 1].Length;
+            lines[yOffset - 1] += lines[yOffset];
+            lines.RemoveAt(yOffset);
+            yOffset --;
+        }
+        //otherwise
+        else
+        {
+            lines[yOffset] = lines[yOffset].Remove(xOffset - 1, 1);
+            xOffset--;
+        }
+    }
    
     private string ReadKey(Keys key, KeyboardState keyboardState)
     {
@@ -112,10 +131,7 @@ public class TextHandler
                 moveCursor(1, 0);
                 return null;
             case Keys.Back:
-                if (lines[yOffset].Length > 0 && xOffset > 0) { 
-                    lines[yOffset] = lines[yOffset].Remove(xOffset - 1, 1); 
-                    xOffset --;
-                    }
+                handleBackspace();
                 return null;
                 
             case Keys.Space: return " ";
