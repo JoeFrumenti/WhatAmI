@@ -8,7 +8,7 @@ namespace WhatAmI;
 public class TextHandler
 {
     private SpriteFont font;
-    private string text = "";
+    private string[] lines = [""];
     private KeyboardState previousKeyboardState;
 
     //cursor stuff
@@ -45,7 +45,7 @@ public class TextHandler
             Texture2D cursorTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
             cursorTexture.SetData(new[] { Color.White });
 
-            textWidth = font.MeasureString(text.Substring(0, text.Length+xOffset)).X;
+            textWidth = font.MeasureString(lines[0].Substring(0, lines[0].Length+xOffset)).X;
 
             spriteBatch.Draw(cursorTexture, new Rectangle((int)anchor.X + (int)textWidth, (int)anchor.Y, 2, font.LineSpacing), Color.White);
         }
@@ -66,7 +66,7 @@ public class TextHandler
 
             if (!string.IsNullOrEmpty(character))
             {
-                text = text.Insert(text.Length + xOffset, character);  // Add the character to your text
+                lines[0] = lines[0].Insert(lines[0].Length + xOffset, character);  // Add the character to your text
             }
 
             
@@ -80,7 +80,7 @@ public class TextHandler
     private void moveCursor(int x, int y)
     {
         xOffset += x;
-        xOffset = Math.Clamp(xOffset, -1 * text.Length,0);
+        xOffset = Math.Clamp(xOffset, -1 * lines[0].Length,0);
     }
 
     private void getCursorMovement(Keys key)
@@ -103,7 +103,7 @@ public class TextHandler
         { 
             
 
-            case Keys.Back: {if (text.Length > 0) text = text.Remove(text.Length + xOffset - 1, 1); return null;}
+            case Keys.Back: {if (lines[0].Length > 0) lines[0] = lines[0].Remove(lines[0].Length + xOffset - 1, 1); return null;}
             case Keys.Space: return " ";
 
             // Handling numbers with Shift
@@ -172,6 +172,9 @@ public class TextHandler
     public void Draw(SpriteBatch spriteBatch, Color color)
     {
         DrawCursor(spriteBatch);
-        spriteBatch.DrawString(font, text, anchor, color);
+        for(int i = 0; i < lines.Length; i++)
+        {
+            spriteBatch.DrawString(font, lines[i], anchor, color);
+        }
     }
 }
