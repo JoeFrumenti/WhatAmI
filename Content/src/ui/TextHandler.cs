@@ -78,8 +78,11 @@ public class TextHandler
 
     private void moveCursor(int x, int y)
     {
+        yOffset += y;
+        yOffset = Math.Clamp(yOffset, 0, lines.Count - 1);
         xOffset += x;
         xOffset = Math.Clamp(xOffset, 0, lines[yOffset].Length);
+
     }
 
    
@@ -96,6 +99,12 @@ public class TextHandler
                 yOffset++;
                 return null;
 
+            case Keys.Up:
+                moveCursor(0,-1);
+                return null;
+            case Keys.Down:
+                moveCursor(0,1);
+                return null;
             case Keys.Left:
                 moveCursor(-1, 0);
                 return null;
