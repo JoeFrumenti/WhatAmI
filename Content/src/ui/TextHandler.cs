@@ -8,8 +8,9 @@ namespace WhatAmI;
 public class TextHandler
 {
     private SpriteFont font;
-    private string[] lines = [""];
+    private List<string> lines = new List<string>{"" };
     private KeyboardState previousKeyboardState;
+    private int index = 0;
 
     //cursor stuff
     private int xOffset = 0; // Horizontal position in the line
@@ -172,7 +173,7 @@ public class TextHandler
     public void Draw(SpriteBatch spriteBatch, Color color)
     {
         DrawCursor(spriteBatch);
-        for(int i = 0; i < lines.Length; i++)
+        for(int i = 0; i < lines.Count; i++)
         {
             spriteBatch.DrawString(font, lines[i], anchor, color);
         }
