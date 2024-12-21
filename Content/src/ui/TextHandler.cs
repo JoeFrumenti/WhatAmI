@@ -32,28 +32,7 @@ public class TextHandler
         this.anchor = anch;
     }
 
-    public void DrawCursor(SpriteBatch spriteBatch)
-    {
-        cursorBlinkTimer += 0.02; // Adjust for blink speed
-
-        if (cursorBlinkTimer >= 1.0)
-        {
-            showCursor = !showCursor; // Toggle cursor visibility
-            cursorBlinkTimer = 0;
-        }
-
-        if (showCursor)
-        {
-
-            // Draw cursor (a simple rectangle)
-            Texture2D cursorTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
-            cursorTexture.SetData(new[] { Color.White });
-
-            textWidth = font.MeasureString(lines[yOffset].Substring(0, xOffset)).X;
-
-            spriteBatch.Draw(cursorTexture, new Rectangle((int)anchor.X + (int)textWidth, (int)anchor.Y + yOffset * textHeight, 2, font.LineSpacing), Color.White);
-        }
-    }
+    
 
     public void Update(GameTime gameTime,SpriteBatch spriteBatch)
     {
@@ -67,7 +46,7 @@ public class TextHandler
 
             if (!string.IsNullOrEmpty(character))
             {
-                lines[yOffset] = lines[yOffset].Insert(xOffset, character);  // Add the character to your text
+                lines[yOffset] = lines[yOffset].Insert(xOffset, character);  
                 xOffset ++;
             }
         }
@@ -204,12 +183,35 @@ public class TextHandler
             default: return null;  // Ignore any other keys
         }
     }
-    public void Draw(SpriteBatch spriteBatch, Color color)
+    public void Draw(SpriteBatch spriteBatch)
     {
         DrawCursor(spriteBatch);
         for(int i = 0; i < lines.Count; i++)
         {
-            spriteBatch.DrawString(font, lines[i], anchor + new Vector2(0,textHeight * i), color);
+            spriteBatch.DrawString(font, lines[i], anchor + new Vector2(0,textHeight * i), Color.White);
+        }
+    }
+
+    public void DrawCursor(SpriteBatch spriteBatch)
+    {
+        cursorBlinkTimer += 0.02; // Adjust for blink speed
+
+        if (cursorBlinkTimer >= 1.0)
+        {
+            showCursor = !showCursor; // Toggle cursor visibility
+            cursorBlinkTimer = 0;
+        }
+
+        if (showCursor)
+        {
+
+            // Draw cursor (a simple rectangle)
+            Texture2D cursorTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
+            cursorTexture.SetData(new[] { Color.White });
+
+            textWidth = font.MeasureString(lines[yOffset].Substring(0, xOffset)).X;
+
+            spriteBatch.Draw(cursorTexture, new Rectangle((int)anchor.X + (int)textWidth, (int)anchor.Y + yOffset * textHeight, 2, font.LineSpacing), Color.White);
         }
     }
 }

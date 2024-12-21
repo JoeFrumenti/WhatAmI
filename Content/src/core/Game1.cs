@@ -15,9 +15,7 @@ namespace WhatAmI
         public static Game1 Instance => _instance;
 
         //assets
-        string assetPath = "C:\\Users\\joefr\\source\\repos\\WhatAmI\\Content\\assets\\";
         private Texture2D _mySprite;
-        private Texture2D grass;
         
 
         //graphics
@@ -30,10 +28,8 @@ namespace WhatAmI
         internal GameObject player;
 
         //text
-        private KeyboardState previousKeyBoardState;
-        private StringBuilder textInput = new StringBuilder();
-        private string userInput = "";
         private TextHandler textHandler;
+        private TextEditor textEditor;
 
         //scenes
         private SceneManager _sceneManager;
@@ -59,15 +55,18 @@ namespace WhatAmI
 
         protected override void LoadContent()
         {
-            _graphicsManager.setPlayer();
             spriteBatch = new SpriteBatch(GraphicsDevice);
             _mySprite = _graphicsManager.generateTexture("env\\green16.png");
+            
+            //guy movin right for debugging
             player = new GameObject(_mySprite, new Vector2(200, 200));
             gameObjects = new List<GameObject>();
             gameObjects.Add(player);
+            
+            //Text editor
             textHandler = new TextHandler(Content.Load<SpriteFont>("fonts/Courier"), new Vector2(100,100));
-            Texture2D blankTexture= new Texture2D(GraphicsDevice, 1, 1);
-            blankTexture.SetData(new[] { Color.White });
+            textEditor = new TextEditor(Content.Load<SpriteFont>("fonts/Courier"));
+            
         }
 
         protected override void Update(GameTime gameTime)
@@ -76,14 +75,7 @@ namespace WhatAmI
                 Exit();
 
             KeyboardState state = Keyboard.GetState();
-            foreach(Keys key in state.GetPressedKeys())
-            {
-                if(key == Keys.Back && textInput.Length > 0) 
-                    textInput.Remove(textInput.Length - 1, 1);
-                else 
-                    textInput.Append(key.ToString());
-
-            }
+           
 
             textHandler.Update(gameTime, spriteBatch);
             _sceneManager.Update(gameTime);
@@ -101,14 +93,9 @@ namespace WhatAmI
             spriteBatch.Begin();
 
 
-            //scene
-
-
+            
             //text
-            textHandler.Update(gameTime, spriteBatch);
-
-            textHandler.Draw(spriteBatch, Color.White);
-            textHandler.DrawCursor(spriteBatch);
+            textEditor.Update(gameTime, spriteBatch);
 
             //gameobjects
             foreach (var gameObject in gameObjects)
