@@ -8,12 +8,15 @@ namespace WhatAmI;
 public class TextHandler
 {
     private SpriteFont font;
-    private List<string> lines = new List<string>{"" };
+    private List<string> lines = new List<string>{""};
     private KeyboardState previousKeyboardState;
-    private int index = 0;
-
-    //cursor stuff
+    
+    //
+    private int yOffset = 0;   //vertical position
     private int xOffset = 0; // Horizontal position in the line
+    private int textHeight = 20;
+   
+    
     private double cursorBlinkTimer = 0;
     private bool showCursor = true;
     private float textWidth;
@@ -46,9 +49,9 @@ public class TextHandler
             Texture2D cursorTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
             cursorTexture.SetData(new[] { Color.White });
 
-            textWidth = font.MeasureString(lines[index].Substring(0, xOffset)).X;
+            textWidth = font.MeasureString(lines[yOffset].Substring(0, xOffset)).X;
 
-            spriteBatch.Draw(cursorTexture, new Rectangle((int)anchor.X + (int)textWidth, (int)anchor.Y, 2, font.LineSpacing), Color.White);
+            spriteBatch.Draw(cursorTexture, new Rectangle((int)anchor.X + (int)textWidth, (int)anchor.Y + yOffset * textHeight, 2, font.LineSpacing), Color.White);
         }
     }
 
@@ -59,20 +62,14 @@ public class TextHandler
         foreach (var key in state.GetPressedKeys())
         {
             if (previousKeyboardState.IsKeyDown(key)) continue;
-            // Check if the key is a letter, number, or punctuation
-
-            getCursorMovement(key);
-
-            string character = GetCharacterFromKey(key, state);
+           
+            string character = ReadKey(key, state);
 
             if (!string.IsNullOrEmpty(character))
             {
-                lines[index] = lines[index].Insert(xOffset, character);  // Add the character to your text
+                lines[yOffset] = lines[yOffset].Insert(xOffset, character);  // Add the character to your text
                 xOffset ++;
             }
-
-            
-
         }
         previousKeyboardState = state;
 
@@ -82,36 +79,36 @@ public class TextHandler
     private void moveCursor(int x, int y)
     {
         xOffset += x;
-        xOffset = Math.Clamp(xOffset, 0, lines[index].Length);
+        xOffset = Math.Clamp(xOffset, 0, lines[yOffset].Length);
     }
 
-    private void getCursorMovement(Keys key)
-    {
-        switch(key)
-        {
-            case Keys.Left: 
-                moveCursor(-1,0); 
-                break;
-            case Keys.Right: 
-                moveCursor(1,0); 
-                break;
-        }
-    }
-    private string GetCharacterFromKey(Keys key, KeyboardState keyboardState)
+   
+    private string ReadKey(Keys key, KeyboardState keyboardState)
     {
         bool isShiftDown = keyboardState.IsKeyDown(Keys.LeftShift) || keyboardState.IsKeyDown(Keys.RightShift);
 
         switch (key)
-        { 
-            
+        {
+            case Keys.Enter:
+                Console.WriteLine("Enter!");
+                lines.Add("");
+                xOffset = 0;
+                yOffset++;
+                return null;
 
-            case Keys.Back: {
-                                if (lines[index].Length > 0 && xOffset > 0) { 
-                                    lines[index] = lines[index].Remove(xOffset - 1, 1); 
-                                    xOffset --;
-                                    }
-                                return null;
-                }
+            case Keys.Left:
+                moveCursor(-1, 0);
+                return null;
+            case Keys.Right:
+                moveCursor(1, 0);
+                return null;
+            case Keys.Back:
+                if (lines[yOffset].Length > 0 && xOffset > 0) { 
+                    lines[yOffset] = lines[yOffset].Remove(xOffset - 1, 1); 
+                    xOffset --;
+                    }
+                return null;
+                
             case Keys.Space: return " ";
 
             // Handling numbers with Shift
@@ -182,7 +179,7 @@ public class TextHandler
         DrawCursor(spriteBatch);
         for(int i = 0; i < lines.Count; i++)
         {
-            spriteBatch.DrawString(font, lines[i], anchor, color);
+            spriteBatch.DrawString(font, lines[i], anchor + new Vector2(0,textHeight * i), color);
         }
     }
 }
