@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.IO;
 using System.Numerics;
 using WhatAmI.Content.src.core;
 using Vector2 = System.Numerics.Vector2;
@@ -57,6 +58,15 @@ namespace WhatAmI.Content.src.terminal
                 cd.parseCommand(command);
            else if(command == "exit") 
                 exit();
+            else if(command == "ls")
+            {
+                string[] entries = Directory.GetFileSystemEntries(cd.getDir());
+                Console.WriteLine("Files:");
+                foreach (string file in entries)
+                {
+                    th.addLine(Path.GetFileName(file));
+                }
+            }
             else
                 Console.WriteLine("Command not recognzied: " + command);
         }
