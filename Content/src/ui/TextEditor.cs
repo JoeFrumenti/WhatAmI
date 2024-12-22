@@ -33,7 +33,11 @@ namespace WhatAmI
                 fileManager.generateFile("output.txt", textHandler.getLines());
                 Console.WriteLine("IT IS WRITTEN");
             }
-             pk = Keyboard.GetState();
+            else if (state.IsKeyDown(Keys.F4) && !pk.IsKeyDown(Keys.F4))
+            {
+                fileManager.openFile("poo.txt", textHandler);
+            }
+                pk = Keyboard.GetState();
         }
     }
 }

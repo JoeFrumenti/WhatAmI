@@ -14,5 +14,21 @@ namespace WhatAmI
             filePath = Path.Combine(dir, filename);
             File.WriteAllLines(filePath, lines);
         }
+
+        internal void openFile(string filename, TextHandler textHandler) 
+        {
+            string dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "WhatAmI/Gameobject/" + filename);
+            try { 
+            
+                List<string > lines = new List<string>(File.ReadAllLines(dir));
+
+                textHandler.setLines(lines);
+                textHandler.setOffsets(0,0);
+            }
+            catch (FileNotFoundException)
+            {
+                Console.WriteLine($"Error: The file '{dir}' was not found.");
+            }
+        }
     }
 }

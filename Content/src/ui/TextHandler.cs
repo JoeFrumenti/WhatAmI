@@ -28,6 +28,10 @@ public class TextHandler
     {
         return lines;
     }
+    internal void setLines(List<string> newLines)
+    {
+        this.lines = newLines;
+    }
 
     public TextHandler(SpriteFont font, Vector2 anch)
     {
@@ -56,6 +60,12 @@ public class TextHandler
         previousKeyboardState = state;
 
         
+    }
+
+    internal void setOffsets(int x, int y)
+    {
+        xOffset = x;
+        yOffset = y;
     }
 
     private void moveCursor(int x, int y)
