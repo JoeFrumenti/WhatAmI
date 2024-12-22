@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
+using WhatAmI.Content.src.core;
 
 namespace WhatAmI
 {

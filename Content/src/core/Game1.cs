@@ -3,6 +3,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using WhatAmI.Content.src.core;
+using WhatAmI.Content.src.entities;
 
 namespace WhatAmI
 {
@@ -94,7 +96,7 @@ namespace WhatAmI
             foreach (UD ud in uds)
             {
                 ud.Draw();
-                Console.WriteLine(ud.GetType());
+                //Console.WriteLine(ud.GetType());
             }
 
 

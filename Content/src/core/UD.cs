@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WhatAmI
+namespace WhatAmI.Content.src.core
 {
     internal abstract class UD
     {

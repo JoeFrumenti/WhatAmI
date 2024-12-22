@@ -6,8 +6,9 @@ using System.IO;
 using System.Numerics;
 using System;
 using Microsoft.Xna.Framework.Content;
+using WhatAmI.Content.src.entities;
 
-namespace WhatAmI
+namespace WhatAmI.Content.src.core
 {
     internal class GraphicsManager
     {
