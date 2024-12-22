@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WhatAmI
 {
-    internal abstract class DU
+    internal abstract class UD
     {
         internal abstract void Draw();
         internal abstract void Update();

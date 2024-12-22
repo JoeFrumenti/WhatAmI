@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 
 namespace WhatAmI;
-internal class TextHandler : DU
+internal class TextHandler : UD
 {
     private SpriteFont font;
     private List<string> lines = new List<string>{""};

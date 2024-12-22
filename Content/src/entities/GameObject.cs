@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace WhatAmI
 {
-    internal class GameObject
+    internal class GameObject : UD
     {
         public Renderer renderer{  get; private set; }
         public Vector2 Position { get; private set; }
@@ -18,18 +18,18 @@ namespace WhatAmI
             this.Position = position;
         }
         
-        internal void Update(GameTime gameTime)
+        internal override void Update()
         {
             Position += new Vector2(1,0);
         }
 
-        internal void Draw(SpriteBatch sb)
+        internal override void Draw()
         {
-            if (sb == null)
+            if (Game1.Instance.spriteBatch == null)
                 Console.WriteLine("Null, but drawing object with graphics device anyways!");
             else
             {
-                renderer.draw(sb, Position);
+                renderer.draw(Game1.Instance.spriteBatch, Position);
             }
         }
     }

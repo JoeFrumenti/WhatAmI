@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
-using WhatAmI.Content.src.scenes;
 
 namespace WhatAmI
 {
@@ -21,7 +21,7 @@ namespace WhatAmI
         internal GraphicsDeviceManager _graphics;
 
         //objects
-        private List<DU> du = new List<DU>();
+        private List<UD> uds = new List<UD>();
         private List<GameObject> gameObjects;
         internal SpriteBatch spriteBatch;
         internal GameObject player;
@@ -30,8 +30,6 @@ namespace WhatAmI
         private TextHandler textHandler;
         private TextEditor textEditor;
 
-        //scenes
-        private SceneManager _sceneManager;
 
         //terminal
         Terminal terminal;
@@ -48,11 +46,6 @@ namespace WhatAmI
         protected override void Initialize()
         {
             base.Initialize();
-            _sceneManager = new SceneManager();
-            _sceneManager.AddScene("MainMenu", new MainMenuScene());
-            _sceneManager.AddScene("GamePlay", new GamePlayScene());
-            _sceneManager.SetActiveScene("MainMenu");
-            terminal = new Terminal();
 
         }
 
@@ -64,12 +57,12 @@ namespace WhatAmI
             //guy movin right for debugging
             player = new GameObject(_mySprite, new Vector2(200, 200));
             gameObjects = new List<GameObject>();
-            gameObjects.Add(player);
+            uds.Add(player);
             
-            //Text editor
-            textHandler = new TextHandler(Content.Load<SpriteFont>("fonts/Courier"), new Vector2(100,100));
-            textEditor = new TextEditor(Content.Load<SpriteFont>("fonts/Courier"));
-            du.Add(textEditor);
+
+            //Terminal 
+            terminal = new Terminal();
+            uds.Add(terminal);
             
         }
 
@@ -81,42 +74,31 @@ namespace WhatAmI
             KeyboardState state = Keyboard.GetState();
            
 
-            textHandler.Update();
-            _sceneManager.Update(gameTime);
-            base.Update(gameTime);
 
-
-            foreach (DU obj in du)
+            foreach (UD ud in uds)
             {
-                obj.Update();
+                ud.Update();
             }
+            base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             //inital stuff
-           var keyboardState = Keyboard.GetState();
+            var keyboardState = Keyboard.GetState();
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
-            _sceneManager.Draw(spriteBatch);
 
 
-            foreach (DU obj in du)
+            foreach (UD ud in uds)
             {
-                obj.Draw();
+                ud.Draw();
+                Console.WriteLine(ud.GetType());
             }
 
 
-            //text
-            textEditor.Update();
 
-            //gameobjects
-            foreach (var gameObject in gameObjects)
-            {
-                gameObject.Update(gameTime);
-                gameObject.Draw(spriteBatch);
-            }
             spriteBatch.End();
 
 
