@@ -18,9 +18,9 @@ namespace WhatAmI.Content.src.core
             KeyboardState state = Keyboard.GetState();
             foreach (var key in state.GetPressedKeys())
             {
-                if (previousKeyboardState.IsKeyDown(keyCheck)) {
+                if (previousKeyboardState.IsKeyDown(keyCheck))
+                {
                     continue;
-
                 }
                 if (key == keyCheck)
                 {

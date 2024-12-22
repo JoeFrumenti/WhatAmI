@@ -31,6 +31,8 @@ namespace WhatAmI.Content.src.terminal
                 th.setBottomLine(cd.getDir() + ">");
                 th.setXOffset(th.getCurrentLine().Length);
             }
+
+
             th.Update();
 
         }
