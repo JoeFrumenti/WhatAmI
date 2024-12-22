@@ -13,9 +13,12 @@ namespace WhatAmI
         //Singleton
         private static Game1 _instance;
         public static Game1 Instance => _instance;
+        internal KeyHandler kh;
 
         //assets
         private Texture2D _mySprite;
+
+        
         
 
         //graphics
@@ -48,6 +51,7 @@ namespace WhatAmI
         protected override void Initialize()
         {
             base.Initialize();
+            kh = new KeyHandler();
 
         }
 

@@ -9,17 +9,27 @@ namespace WhatAmI.Content.src.core
 {
     internal class KeyHandler
     {
-        KeyboardState previousKeyboardState;
         public KeyHandler() { }
-        internal bool keyPressed(Keys k)
+        KeyboardState previousKeyboardState;
+        
+        internal bool keyPressed(Keys keyCheck)
         {
+            
             KeyboardState state = Keyboard.GetState();
-
             foreach (var key in state.GetPressedKeys())
             {
-                if (k == key)
+                if (previousKeyboardState.IsKeyDown(keyCheck)) {
+                    continue;
+
+                }
+                Console.WriteLine(key.ToString());
+                if (key == keyCheck)
+                {
+                    previousKeyboardState = state;
                     return true;
+                }
             }
+            previousKeyboardState = state;
             return false;
 
         }

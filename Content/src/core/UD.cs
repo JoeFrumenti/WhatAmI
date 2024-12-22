@@ -8,7 +8,7 @@ namespace WhatAmI.Content.src.core
 {
     internal abstract class UD
     {
-        internal abstract void Draw();
         internal abstract void Update();
+        internal abstract void Draw();
     }
 }

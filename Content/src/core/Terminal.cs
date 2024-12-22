@@ -17,7 +17,7 @@ namespace WhatAmI.Content.src.core
         internal override void Update()
         {
             th.Update();
-            
+            if(Game1.Instance.kh.keyPressed(Keys.Enter));
             
         }
         internal override void Draw()
