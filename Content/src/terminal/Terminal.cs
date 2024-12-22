@@ -55,10 +55,14 @@ namespace WhatAmI.Content.src.terminal
             }
             else if(command.Length >=3 && command.Substring(0,3) == "cd ")
                 cd.parseCommand(command);
-           else if(command == "stop") 
-                Game1.Instance.removeUD("terminal");
+           else if(command == "exit") 
+                exit();
             else
                 Console.WriteLine("Command not recognzied: " + command);
+        }
+        private void exit()
+        {
+            Game1.Instance.removeUD("terminal");
         }
     }
 }
