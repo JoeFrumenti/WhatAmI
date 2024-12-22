@@ -17,7 +17,7 @@ namespace WhatAmI.Content.src.terminal
             th = new TextHandler(Game1.Instance.Content.Load<SpriteFont>("fonts/Courier"), new Vector2(100, 1000));
             
             cd = new CD();
-            th.setBottomLine(cd.getDir() + ">");
+            th.setPrefixAtIndex(0, cd.getDir() + ">");
             th.setXOffset(th.getCurrentLine().Length);
         }
 
@@ -26,9 +26,10 @@ namespace WhatAmI.Content.src.terminal
             if (Game1.Instance.kh.keyPressed(Keys.Enter))
             {
                 parseCommand(th.getCurrentLine());
+                th.setPrefix(cd.getDir() + ">");
                 th.Update();
                 th.moveAnchor(new Vector2(0, -1 * th.getTextHeight()));
-                th.setBottomLine(cd.getDir() + ">");
+                
                 th.setXOffset(th.getCurrentLine().Length);
             }
 
@@ -44,8 +45,7 @@ namespace WhatAmI.Content.src.terminal
 
         private void parseCommand(string input)
         {
-            string dir = input.Substring(0,input.IndexOf(">"));
-            string command  = input.Substring(input.IndexOf(">") + 1);
+            string command  = input;
 
             if (command == "hello")
             {

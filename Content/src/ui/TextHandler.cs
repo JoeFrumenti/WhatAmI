@@ -11,7 +11,8 @@ internal class TextHandler : UD
     private SpriteFont font;
     private List<string> lines = new List<string>{""};
     private KeyboardState previousKeyboardState;
-    private List<string> prefix = new List<string>{"a"};
+    private List<string> prefixes = new List<string>{""};
+    private string prefix = "";
 
     //
     private int yOffset = 0;   //vertical position
@@ -27,6 +28,8 @@ internal class TextHandler : UD
 
     private Vector2 anchor;
 
+    internal void setPrefix(string prefix) { this.prefix = prefix; }
+    internal void setPrefixAtIndex(int index, string  prefix) { this.prefixes[index] = prefix; }
     internal int getTextHeight() {  return textHeight; }
 
     internal void moveAnchor(Vector2 anchor)
@@ -121,7 +124,7 @@ internal class TextHandler : UD
     private void handleEnter()
     {
         lines.Insert(yOffset + 1,lines[yOffset].Substring(xOffset));
-        prefix.Add("A");
+        prefixes.Add(prefix);
 
         lines[yOffset] = lines[yOffset].Substring(0, xOffset);
         xOffset = 0;
@@ -224,7 +227,7 @@ internal class TextHandler : UD
         DrawCursor(Game1.Instance.spriteBatch);
         for(int i = 0; i < lines.Count; i++)
         {
-            Game1.Instance.spriteBatch.DrawString(font, prefix[i] + lines[i], anchor + new Vector2(0,textHeight * i), Color.White);
+            Game1.Instance.spriteBatch.DrawString(font, prefixes[i] + lines[i], anchor + new Vector2(0,textHeight * i), Color.White);
         }
     }
 
@@ -245,7 +248,7 @@ internal class TextHandler : UD
             Texture2D cursorTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
             cursorTexture.SetData(new[] { Color.White });
 
-            textWidth = font.MeasureString(lines[yOffset].Substring(0, xOffset) + prefix[yOffset]).X;
+            textWidth = font.MeasureString(lines[yOffset].Substring(0, xOffset) + prefixes[yOffset]).X;
 
             spriteBatch.Draw(cursorTexture, new Rectangle((int)anchor.X + (int)textWidth, (int)anchor.Y + yOffset * textHeight, 2, font.LineSpacing), Color.White);
         }
