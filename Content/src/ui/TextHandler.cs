@@ -24,7 +24,10 @@ public class TextHandler
 
     private Vector2 anchor;
 
-
+    internal List<string> getLines()
+    {
+        return lines;
+    }
 
     public TextHandler(SpriteFont font, Vector2 anch)
     {

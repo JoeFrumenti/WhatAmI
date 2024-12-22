@@ -88,12 +88,10 @@ namespace WhatAmI
            var keyboardState = Keyboard.GetState();
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            spriteBatch.Begin();
             _sceneManager.Draw(spriteBatch);
 
-            spriteBatch.Begin();
 
-
-            
             //text
             textEditor.Update(gameTime, spriteBatch);
 

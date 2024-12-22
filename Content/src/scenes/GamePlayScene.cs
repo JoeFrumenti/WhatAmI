@@ -34,9 +34,8 @@ namespace WhatAmI.Content.src.scenes
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin();
             spriteBatch.Draw(_sprite, _position, Color.White);
-            spriteBatch.End();
+            
         }
 
         public override void UnloadContent()

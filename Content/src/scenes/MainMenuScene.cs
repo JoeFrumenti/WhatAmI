@@ -30,9 +30,7 @@ namespace WhatAmI
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin();
             spriteBatch.DrawString(_font, "Press Enter to Play", new Vector2(100, 10), Color.White);
-            spriteBatch.End();
         }
 
         public override void UnloadContent()
