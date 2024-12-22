@@ -64,6 +64,7 @@ internal class TextHandler : UD
         prefixes.Add(newLine);
         setXOffset(0);
         setYOffset(getYOffset() + 1);
+
         //yOffset++;
     }
 

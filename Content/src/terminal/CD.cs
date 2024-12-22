@@ -12,8 +12,15 @@ namespace WhatAmI.Content.src.terminal
         private string dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "WhatAmI");
         internal string getDir() { return dir;}
 
-        internal void parseCommand(string command) {
-            Console.WriteLine(command);
+        internal void parseCommand(string fullCommand) {
+            string command = fullCommand.Substring(fullCommand.IndexOf(" ") + 1);
+            if(command =="..")
+                dir = Path.GetDirectoryName(dir);
+            
+            else if(Directory.Exists(dir + "\\" + command))
+                dir += ("\\" + command);
+            else
+                Console.WriteLine("Does not exists");
         }
     }
 }

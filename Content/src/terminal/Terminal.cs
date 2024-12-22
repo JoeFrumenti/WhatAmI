@@ -56,7 +56,7 @@ namespace WhatAmI.Content.src.terminal
             }
             else if(command.Length >=3 && command.Substring(0,3) == "cd ")
                 cd.parseCommand(command);
-           else if(command == "exit") 
+            else if(command == "exit") 
                 exit();
             else if(command == "ls")
             {
@@ -65,6 +65,7 @@ namespace WhatAmI.Content.src.terminal
                 foreach (string file in entries)
                 {
                     th.addLine(Path.GetFileName(file));
+                    th.moveAnchor(new Vector2(0,-1 * th.getTextHeight()));
                 }
             }
             else
