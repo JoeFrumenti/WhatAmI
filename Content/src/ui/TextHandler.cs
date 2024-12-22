@@ -25,6 +25,13 @@ internal class TextHandler : UD
 
     private Vector2 anchor;
 
+    internal int getTextHeight() {  return textHeight; }
+
+    internal void moveAnchor(Vector2 anchor)
+    {
+        this.anchor += anchor;
+    }
+
     internal List<string> getLines()
     {
         return lines;
@@ -54,7 +61,7 @@ internal class TextHandler : UD
 
             if (!string.IsNullOrEmpty(character))
             {
-                lines[yOffset] = lines[yOffset].Insert(xOffset, character);  
+                lines[yOffset] = lines[yOffset].Insert(xOffset, character);
                 xOffset ++;
             }
         }

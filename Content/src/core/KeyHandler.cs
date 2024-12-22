@@ -22,7 +22,6 @@ namespace WhatAmI.Content.src.core
                     continue;
 
                 }
-                Console.WriteLine(key.ToString());
                 if (key == keyCheck)
                 {
                     previousKeyboardState = state;

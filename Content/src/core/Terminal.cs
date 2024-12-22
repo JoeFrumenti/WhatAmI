@@ -17,7 +17,10 @@ namespace WhatAmI.Content.src.core
         internal override void Update()
         {
             th.Update();
-            if(Game1.Instance.kh.keyPressed(Keys.Enter));
+            if (Game1.Instance.kh.keyPressed(Keys.Enter))
+            {
+                th.moveAnchor(new Vector2(0, -1 *th.getTextHeight()));
+            }
             
         }
         internal override void Draw()
