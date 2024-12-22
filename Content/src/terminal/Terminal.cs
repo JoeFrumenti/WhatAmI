@@ -26,15 +26,17 @@ namespace WhatAmI.Content.src.terminal
             if (Game1.Instance.kh.keyPressed(Keys.Enter))
             {
                 parseCommand(th.getCurrentLine());
+
                 th.setPrefix(cd.getDir() + ">");
                 th.Update();
+                th.handleEnter();
                 th.moveAnchor(new Vector2(0, -1 * th.getTextHeight()));
-                
-                th.setXOffset(th.getCurrentLine().Length);
+                th.setYOffset(th.getYOffset() + 1);
+                th.setXOffset(0);
             }
 
-
-            th.Update();
+            else
+                th.Update();
 
         }
         internal override void Draw()
@@ -49,13 +51,14 @@ namespace WhatAmI.Content.src.terminal
 
             if (command == "hello")
             {
-                Console.WriteLine("Hello, world!");
+                th.addLine("Hello, world!");
             }
             else if(command.Length >=3 && command.Substring(0,3) == "cd ")
                 cd.parseCommand(command);
+           else if(command == "stop") 
+                Game1.Instance.removeUD("terminal");
             else
                 Console.WriteLine("Command not recognzied: " + command);
         }
-
     }
 }

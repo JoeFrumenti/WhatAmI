@@ -28,6 +28,8 @@ internal class TextHandler : UD
 
     private Vector2 anchor;
 
+    internal void setYOffset(int y) {  this.yOffset = y; }
+    internal int getYOffset() { return this.yOffset; }
     internal void setPrefix(string prefix) { this.prefix = prefix; }
     internal void setPrefixAtIndex(int index, string  prefix) { this.prefixes[index] = prefix; }
     internal int getTextHeight() {  return textHeight; }
@@ -56,6 +58,14 @@ internal class TextHandler : UD
     {
         return lines[yOffset];
     }
+    internal void addLine(string newLine)
+    {
+        lines.Add("");
+        prefixes.Add(newLine);
+        setXOffset(0);
+        setYOffset(getYOffset() + 1);
+        //yOffset++;
+    }
 
     public TextHandler(SpriteFont font, Vector2 anch)
     {
@@ -72,7 +82,6 @@ internal class TextHandler : UD
         foreach (var key in state.GetPressedKeys())
         {
             if (previousKeyboardState.IsKeyDown(key)) continue;
-           
             string character = ReadKey(key, state);
 
             if (!string.IsNullOrEmpty(character))
@@ -108,27 +117,28 @@ internal class TextHandler : UD
         //far left, delete line break
         else if(xOffset == 0)
         {
-            xOffset = lines[yOffset - 1].Length;
-            lines[yOffset - 1] += lines[yOffset];
-            lines.RemoveAt(yOffset);
-            yOffset --;
+            if (prefix.Length == 0) { 
+                xOffset = lines[yOffset - 1].Length;
+                lines[yOffset - 1] += lines[yOffset];
+                lines.RemoveAt(yOffset);
+                yOffset --;
+            }
         }
         //otherwise
-        else
+        else 
         {
             lines[yOffset] = lines[yOffset].Remove(xOffset - 1, 1);
             xOffset--;
         }
     }
 
-    private void handleEnter()
+    internal void handleEnter()
     {
         lines.Insert(yOffset + 1,lines[yOffset].Substring(xOffset));
         prefixes.Add(prefix);
 
         lines[yOffset] = lines[yOffset].Substring(0, xOffset);
         xOffset = 0;
-        yOffset++;
     }
    
     private string ReadKey(Keys key, KeyboardState keyboardState)
@@ -137,9 +147,7 @@ internal class TextHandler : UD
 
         switch (key)
         {
-            case Keys.Enter:
-                handleEnter();
-                return null;
+            
 
             case Keys.Up:
                 moveCursor(0,-1);
@@ -233,6 +241,7 @@ internal class TextHandler : UD
 
     public void DrawCursor(SpriteBatch spriteBatch)
     {
+        
         cursorBlinkTimer += 0.02; // Adjust for blink speed
 
         if (cursorBlinkTimer >= 1.0)

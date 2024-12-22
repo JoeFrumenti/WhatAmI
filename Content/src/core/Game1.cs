@@ -22,12 +22,15 @@ namespace WhatAmI
         internal SpriteBatch spriteBatch;
 
         //objects
-        private List<UD> uds = new List<UD>();
+        private Dictionary<string, UD> uds = new Dictionary<string, UD>();
 
 
         //terminal
         Terminal terminal;
-
+        internal void removeUD(string name)
+        {
+            uds.Remove(name);
+        }
         public Game1()
         {
             _instance = this;
@@ -50,7 +53,7 @@ namespace WhatAmI
             
             //Terminal 
             terminal = new Terminal();
-            uds.Add(terminal);
+            uds.Add("terminal", terminal);
             
         }
 
@@ -61,7 +64,7 @@ namespace WhatAmI
 
             KeyboardState state = Keyboard.GetState();
            
-            foreach (UD ud in uds)
+            foreach (UD ud in uds.Values)
             {
                 ud.Update();
             }
@@ -77,7 +80,7 @@ namespace WhatAmI
             spriteBatch.Begin();
 
 
-            foreach (UD ud in uds)
+            foreach (UD ud in uds.Values)
             {
                 ud.Draw();
             }
