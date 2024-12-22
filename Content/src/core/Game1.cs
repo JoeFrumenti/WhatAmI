@@ -2,8 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
 using WhatAmI.Content.src.scenes;
 
 namespace WhatAmI
@@ -23,6 +21,7 @@ namespace WhatAmI
         internal GraphicsDeviceManager _graphics;
 
         //objects
+        private List<DU> du = new List<DU>();
         private List<GameObject> gameObjects;
         internal SpriteBatch spriteBatch;
         internal GameObject player;
@@ -33,6 +32,9 @@ namespace WhatAmI
 
         //scenes
         private SceneManager _sceneManager;
+
+        //terminal
+        Terminal terminal;
 
         public Game1()
         {
@@ -50,6 +52,7 @@ namespace WhatAmI
             _sceneManager.AddScene("MainMenu", new MainMenuScene());
             _sceneManager.AddScene("GamePlay", new GamePlayScene());
             _sceneManager.SetActiveScene("MainMenu");
+            terminal = new Terminal();
 
         }
 
@@ -66,6 +69,7 @@ namespace WhatAmI
             //Text editor
             textHandler = new TextHandler(Content.Load<SpriteFont>("fonts/Courier"), new Vector2(100,100));
             textEditor = new TextEditor(Content.Load<SpriteFont>("fonts/Courier"));
+            du.Add(textEditor);
             
         }
 
@@ -77,9 +81,15 @@ namespace WhatAmI
             KeyboardState state = Keyboard.GetState();
            
 
-            textHandler.Update(gameTime, spriteBatch);
+            textHandler.Update();
             _sceneManager.Update(gameTime);
             base.Update(gameTime);
+
+
+            foreach (DU obj in du)
+            {
+                obj.Update();
+            }
         }
 
         protected override void Draw(GameTime gameTime)
@@ -92,8 +102,14 @@ namespace WhatAmI
             _sceneManager.Draw(spriteBatch);
 
 
+            foreach (DU obj in du)
+            {
+                obj.Draw();
+            }
+
+
             //text
-            textEditor.Update(gameTime, spriteBatch);
+            textEditor.Update();
 
             //gameobjects
             foreach (var gameObject in gameObjects)

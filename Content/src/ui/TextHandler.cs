@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 
 namespace WhatAmI;
-public class TextHandler
+internal class TextHandler : DU
 {
     private SpriteFont font;
     private List<string> lines = new List<string>{""};
@@ -41,7 +41,7 @@ public class TextHandler
 
     
 
-    public void Update(GameTime gameTime,SpriteBatch spriteBatch)
+    internal override void Update()
     {
         KeyboardState state = Keyboard.GetState();
 
@@ -196,12 +196,12 @@ public class TextHandler
             default: return null;  // Ignore any other keys
         }
     }
-    public void Draw(SpriteBatch spriteBatch)
+    internal override void Draw()
     {
-        DrawCursor(spriteBatch);
+        DrawCursor(Game1.Instance.spriteBatch);
         for(int i = 0; i < lines.Count; i++)
         {
-            spriteBatch.DrawString(font, lines[i], anchor + new Vector2(0,textHeight * i), Color.White);
+            Game1.Instance.spriteBatch.DrawString(font, lines[i], anchor + new Vector2(0,textHeight * i), Color.White);
         }
     }
 

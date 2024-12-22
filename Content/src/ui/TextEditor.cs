@@ -6,7 +6,7 @@ using System;
 namespace WhatAmI
 {
     
-    internal class TextEditor
+    internal class TextEditor : DU
     {
         TextHandler textHandler;
         FileManager fileManager;
@@ -19,13 +19,17 @@ namespace WhatAmI
             fileManager = new FileManager();
         }
 
-        internal void Update(GameTime gameTime, SpriteBatch spriteBatch)
+        internal override void Update()
         {
-            textHandler.Update(gameTime, spriteBatch);
-            textHandler.Draw(spriteBatch);
+            textHandler.Update();
+            
+        }
+        internal override void Draw()
+        {
+            textHandler.Draw();
 
             KeyboardState state = Keyboard.GetState();
-            
+
 
             // Check if F5 is pressed
             if (state.IsKeyDown(Keys.F5) && !pk.IsKeyDown(Keys.F5))
@@ -37,7 +41,7 @@ namespace WhatAmI
             {
                 fileManager.openFile("poo.txt", textHandler);
             }
-                pk = Keyboard.GetState();
+            pk = Keyboard.GetState();
         }
     }
 }
