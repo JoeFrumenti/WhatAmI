@@ -31,7 +31,10 @@ internal class TextHandler : UD
     {
         this.anchor += anchor;
     }
-
+    internal void setXOffset(int offset)
+    {
+        xOffset = offset;
+    }
     internal List<string> getLines()
     {
         return lines;
@@ -40,7 +43,10 @@ internal class TextHandler : UD
     {
         this.lines = newLines;
     }
-
+    internal void setBottomLine(string line)
+    {
+        lines[yOffset] = line;
+    }
     internal string getCurrentLine()
     {
         return lines[yOffset];
