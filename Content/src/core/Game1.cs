@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using WhatAmI.Content.src.core;
-using WhatAmI.Content.src.entities;
 
 namespace WhatAmI
 {
@@ -15,25 +14,14 @@ namespace WhatAmI
         public static Game1 Instance => _instance;
         internal KeyHandler kh;
 
-        //assets
-        private Texture2D _mySprite;
-
-        
-        
 
         //graphics
         internal GraphicsManager _graphicsManager;
         internal GraphicsDeviceManager _graphics;
+        internal SpriteBatch spriteBatch;
 
         //objects
         private List<UD> uds = new List<UD>();
-        private List<GameObject> gameObjects;
-        internal SpriteBatch spriteBatch;
-        internal GameObject player;
-
-        //text
-        private TextHandler textHandler;
-        private TextEditor textEditor;
 
 
         //terminal
@@ -58,14 +46,7 @@ namespace WhatAmI
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            _mySprite = _graphicsManager.generateTexture("env\\green16.png");
             
-            //guy movin right for debugging
-            player = new GameObject(_mySprite, new Vector2(200, 200));
-            gameObjects = new List<GameObject>();
-            uds.Add(player);
-            
-
             //Terminal 
             terminal = new Terminal();
             uds.Add(terminal);
@@ -79,8 +60,6 @@ namespace WhatAmI
 
             KeyboardState state = Keyboard.GetState();
            
-
-
             foreach (UD ud in uds)
             {
                 ud.Update();
@@ -100,13 +79,9 @@ namespace WhatAmI
             foreach (UD ud in uds)
             {
                 ud.Draw();
-                //Console.WriteLine(ud.GetType());
             }
 
-
-
             spriteBatch.End();
-
 
             base.Draw(gameTime);
         }

@@ -41,6 +41,11 @@ internal class TextHandler : UD
         this.lines = newLines;
     }
 
+    internal string getCurrentLine()
+    {
+        return lines[yOffset];
+    }
+
     public TextHandler(SpriteFont font, Vector2 anch)
     {
         this.font = font;

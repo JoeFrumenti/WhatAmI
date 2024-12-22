@@ -16,12 +16,13 @@ namespace WhatAmI.Content.src.core
 
         internal override void Update()
         {
-            th.Update();
             if (Game1.Instance.kh.keyPressed(Keys.Enter))
             {
                 th.moveAnchor(new Vector2(0, -1 *th.getTextHeight()));
+                parseCommand(th.getCurrentLine());
             }
-            
+            th.Update();
+
         }
         internal override void Draw()
         {
@@ -29,7 +30,15 @@ namespace WhatAmI.Content.src.core
             th.Draw();
         }
         
-
+        private void parseCommand(string command)
+        {
+            if(command == "hello")
+            {
+                Console.WriteLine("Hello, world!");
+            }
+            else
+                Console.WriteLine("Command not recognzied: " + command);
+        }
 
     }
 }
