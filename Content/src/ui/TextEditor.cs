@@ -6,7 +6,7 @@ using System;
 namespace WhatAmI
 {
     
-    internal class TextEditor : DU
+    internal class TextEditor : UD
     {
         TextHandler textHandler;
         FileManager fileManager;
