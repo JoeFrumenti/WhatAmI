@@ -2,8 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Numerics;
 using WhatAmI.Content.src.core;
 using Vector2 = System.Numerics.Vector2;
 
@@ -13,6 +13,7 @@ namespace WhatAmI.Content.src.terminal
     {
         TextHandler th;
         CD cd;
+        private Dictionary<string, Action<string[]>> commands;
         internal Terminal()
         {
             th = new TextHandler(Game1.Instance.Content.Load<SpriteFont>("fonts/Courier"), new Vector2(100, 1000));
@@ -20,13 +21,62 @@ namespace WhatAmI.Content.src.terminal
             cd = new CD();
             th.setPrefixAtIndex(0, cd.getDir() + ">");
             th.setXOffset(th.getCurrentLine().Length);
-        }
 
+            commands = new Dictionary<string, Action<string[]>>
+            {
+                { "hello", HelloWorld},
+                {"cd", CD },
+                { "text", text },
+                {"ls", ls },
+                {"exit", exit }
+            };
+
+        }
+        private void CD(string[] args)
+        {
+            if(args.Length == 0)
+            {
+                th.addLine("",true);
+                th.addLine("Error: no directory given", true);
+                th.addLine("", true);
+                return;
+            }
+            cd.parseCommand(args[0]);
+        }
+        private void text(string[] args)
+        {
+            TextEditor te = new TextEditor(Game1.Instance.Content.Load<SpriteFont>("fonts/Courier"));
+            if(args.Length > 0)
+            {
+                te.loadFile(cd.getDir() + "\\" + args[0]);
+
+            }
+            Game1.Instance.prepUD("TextEditor", te);
+            exit([""]);
+        }
+        private void ls(string[] args)
+        {
+            th.addLine("", true);
+            string[] entries = Directory.GetFileSystemEntries(cd.getDir());
+            foreach (string file in entries)
+            {
+                th.addLine(Path.GetFileName(file), true);
+            }
+            th.addLine("", true);
+        }
+        private void HelloWorld(string[] args)
+        {
+            th.addLine("Hello, world!", true);
+        }
+        private void exit(string[] args)
+        {
+            Game1.Instance.removeUD("terminal");
+        }
         internal override void Update()
         {
             if (Game1.Instance.kh.keyPressed(Keys.Enter))
             {
-                parseCommand(th.getCurrentLine());
+                ExecuteCommand(th.getCurrentLine());
 
                 th.setPrefix(cd.getDir() + ">");
                 th.Update();
@@ -46,42 +96,24 @@ namespace WhatAmI.Content.src.terminal
             th.Draw();
         }
 
-        private void parseCommand(string input)
+        private void ExecuteCommand(string input)
         {
-            string command  = input;
+            string[] parts = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            if (parts.Length == 0) return;
 
-            if (command == "hello")
+            string command = parts[0];
+            string[] args = parts.Length > 1 ? parts[1..] : Array.Empty<string>();
+            if (commands.TryGetValue(command, out Action<string[]> action))
             {
-                th.addLine("Hello, world!", true);
-            }
-            else if(command.Length >=3 && command.Substring(0,3) == "cd ")
-                cd.parseCommand(command);
-            else if(command == "exit") 
-                exit();
-            else if(command == "text")
-            {
-                TextEditor te = new TextEditor(Game1.Instance.Content.Load<SpriteFont>("fonts/Courier"));
-                Game1.Instance.prepUD("TextEditor", te);
-                exit();
-
-
-            }
-            else if(command == "ls")
-            {
-                th.addLine("",true);
-                string[] entries = Directory.GetFileSystemEntries(cd.getDir());
-                foreach (string file in entries)
-                {
-                    th.addLine(Path.GetFileName(file),true);
-                }
-                th.addLine("", true);
+                action(args); // Execute the corresponding action with arguments
             }
             else
-                Console.WriteLine("Command not recognzied: " + command);
+            {
+                Console.WriteLine($"Unknown command: {command}");
+            }
         }
-        private void exit()
-        {
-            Game1.Instance.removeUD("terminal");
-        }
+
+       
+        
     }
 }

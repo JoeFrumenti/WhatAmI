@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
+using System.IO;
 using WhatAmI.Content.src.core;
 
 namespace WhatAmI
@@ -18,6 +20,27 @@ namespace WhatAmI
         {
             textHandler = new TextHandler(font, new Vector2(100, 100));
             fileManager = new FileManager();
+        }
+
+        internal void loadFile(string filePath)
+        {
+            if (File.Exists(filePath))
+            {
+                Console.WriteLine("FILE EXISTS");
+                // Read all lines into a list of strings
+                List<string> lines = new List<string>(File.ReadAllLines(filePath));
+
+                foreach(string s in lines)
+                {
+                    textHandler.addLine(s,false);
+                }
+                textHandler.setXOffset(0);
+                textHandler.setYOffset(0);
+            }
+            else
+            {
+                Console.WriteLine("File does not exist.");
+            }
         }
 
         
