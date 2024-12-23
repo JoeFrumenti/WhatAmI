@@ -13,8 +13,9 @@ namespace WhatAmI.Content.src.core
 {
     internal class GraphicsManager
     {
-        string assetPath = "C:\\Users\\joefr\\source\\repos\\WhatAmI\\Content\\assets\\textures\\";
-        
+        string assetPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "WhatAmI");
+       
+
         Matrix scale = Matrix.CreateScale(1, 1, 1);
         private Game1 game;
         private SpriteBatch spriteBatch;
@@ -25,6 +26,7 @@ namespace WhatAmI.Content.src.core
         {
             this.game = game;
             this.spriteBatch = game.spriteBatch;
+            Console.WriteLine(assetPath);
         }
         internal void setPlayer()
         {
@@ -71,9 +73,9 @@ namespace WhatAmI.Content.src.core
             try { 
                 Texture2D tempTex = null;
                 SpriteBatch _spriteBatch = new SpriteBatch(game.GraphicsDevice);
-
+                //C:\Users\joefr\Desktop\Gamedev\WhatAmI\Content\assets\textures\env\green16.png
                 // TODO: use this.Content to load your game content here
-                using (var stream = File.OpenRead(assetPath + filePath))
+                using var stream = File.OpenRead(Path.Combine(assetPath, filePath)) ;
                 {
                     tempTex = Texture2D.FromStream(game.GraphicsDevice, stream);
                 }

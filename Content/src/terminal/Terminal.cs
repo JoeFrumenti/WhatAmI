@@ -66,7 +66,7 @@ namespace WhatAmI.Content.src.terminal
         private void makePlayer(string[] args)
         {
             
-            Player player = new Player(Game1.Instance._graphicsManager.generateTexture("env\\green16.png"), new Microsoft.Xna.Framework.Vector2(int.Parse(args[1]), int.Parse(args[2])));
+            Player player = new Player(Game1.Instance._graphicsManager.generateTexture("assets\\textures\\env\\green16.png"), new Microsoft.Xna.Framework.Vector2(int.Parse(args[1]), int.Parse(args[2])));
             if (args.Length > 0)
                 Game1.Instance.prepUD(args[0],player);
             else

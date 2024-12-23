@@ -82,7 +82,7 @@ namespace WhatAmI
             //te = new TextEditor(Content.Load<SpriteFont>("fonts/Courier"));
             //uds.Add("txt", te);
 
-            p = new Player(_graphicsManager.generateTexture("env\\green16.png"), new Vector2(100,100));
+            p = new Player(_graphicsManager.generateTexture("assets\\textures\\env\\green16.png"), new Vector2(100,100));
             uds.Add("p", p);
 
         }
