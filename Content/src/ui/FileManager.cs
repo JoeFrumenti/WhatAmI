@@ -9,10 +9,9 @@ namespace WhatAmI
         private string filePath;
         internal void generateFile(string filename, List<string> lines)
         {
-            string dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "WhatAmI/Gameobject/");
+            string dir = Path.GetDirectoryName(filename);
             if(!Directory.Exists(dir)) Directory.CreateDirectory(dir);
-            filePath = Path.Combine(dir, filename);
-            File.WriteAllLines(filePath, lines);
+            File.WriteAllLines(filename, lines);
         }
 
         internal void openFile(string filename, TextHandler textHandler) 

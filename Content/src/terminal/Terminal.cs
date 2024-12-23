@@ -36,9 +36,9 @@ namespace WhatAmI.Content.src.terminal
         {
             if(args.Length == 0)
             {
-                th.addLine("",true);
-                th.addLine("Error: no directory given", true);
-                th.addLine("", true);
+                th.addPrefix("",true);
+                th.addPrefix("Error: no directory given", true);
+                th.addPrefix("", true);
                 return;
             }
             cd.parseCommand(args[0]);
@@ -56,17 +56,17 @@ namespace WhatAmI.Content.src.terminal
         }
         private void ls(string[] args)
         {
-            th.addLine("", true);
+            th.addPrefix("", true);
             string[] entries = Directory.GetFileSystemEntries(cd.getDir());
             foreach (string file in entries)
             {
-                th.addLine(Path.GetFileName(file), true);
+                th.addPrefix(Path.GetFileName(file), true);
             }
-            th.addLine("", true);
+            th.addPrefix("", true);
         }
         private void HelloWorld(string[] args)
         {
-            th.addLine("Hello, world!", true);
+            th.addPrefix("Hello, world!", true);
         }
         private void exit(string[] args)
         {

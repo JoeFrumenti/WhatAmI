@@ -15,6 +15,7 @@ namespace WhatAmI
         FileManager fileManager;
 
         private KeyboardState pk;
+        private string currentFileName = "";
 
         internal TextEditor(SpriteFont font)
         {
@@ -26,7 +27,7 @@ namespace WhatAmI
         {
             if (File.Exists(filePath))
             {
-                Console.WriteLine("FILE EXISTS");
+                currentFileName = filePath;
                 // Read all lines into a list of strings
                 List<string> lines = new List<string>(File.ReadAllLines(filePath));
 
@@ -66,7 +67,7 @@ namespace WhatAmI
             // Check if F5 is pressed
             if (state.IsKeyDown(Keys.F5) && !pk.IsKeyDown(Keys.F5))
             {
-                fileManager.generateFile("output.txt", textHandler.getLines());
+                fileManager.generateFile(currentFileName, textHandler.getLines());
                 Console.WriteLine("IT IS WRITTEN");
             }
             else if (state.IsKeyDown(Keys.F4) && !pk.IsKeyDown(Keys.F4))

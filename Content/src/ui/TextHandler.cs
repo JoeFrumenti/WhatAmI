@@ -53,10 +53,25 @@ internal class TextHandler : UD
     {
         return lines[yOffset];
     }
-    internal void addLine(string newLine, bool move)
+    internal void addPrefix(string newLine, bool move)
     {
         lines.Add("");
         prefixes.Add(newLine);
+        setXOffset(0);
+        setYOffset(getYOffset() + 1);
+
+        if (move)
+        {
+            moveAnchor(new Vector2(0, -1 * textHeight));
+        }
+
+        //yOffset++;
+    }
+
+    internal void addLine(string newLine, bool move)
+    {
+        lines.Add(newLine);
+        prefixes.Add("");
         setXOffset(0);
         setYOffset(getYOffset() + 1);
 
