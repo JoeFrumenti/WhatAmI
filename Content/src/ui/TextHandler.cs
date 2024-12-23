@@ -33,7 +33,6 @@ internal class TextHandler : UD
     internal void setPrefix(string prefix) { this.prefix = prefix; }
     internal void setPrefixAtIndex(int index, string  prefix) { this.prefixes[index] = prefix; }
     internal int getTextHeight() {  return textHeight; }
-
     internal void moveAnchor(Vector2 anchor)
     {
         this.anchor += anchor;
@@ -50,20 +49,21 @@ internal class TextHandler : UD
     {
         this.lines = newLines;
     }
-    internal void setBottomLine(string line)
-    {
-        lines[yOffset] = line;
-    }
     internal string getCurrentLine()
     {
         return lines[yOffset];
     }
-    internal void addLine(string newLine)
+    internal void addLine(string newLine, bool move)
     {
         lines.Add("");
         prefixes.Add(newLine);
         setXOffset(0);
         setYOffset(getYOffset() + 1);
+
+        if (move)
+        {
+            moveAnchor(new Vector2(0, -1 * textHeight));
+        }
 
         //yOffset++;
     }

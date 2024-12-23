@@ -52,7 +52,7 @@ namespace WhatAmI.Content.src.terminal
 
             if (command == "hello")
             {
-                th.addLine("Hello, world!");
+                th.addLine("Hello, world!", true);
             }
             else if(command.Length >=3 && command.Substring(0,3) == "cd ")
                 cd.parseCommand(command);
@@ -68,15 +68,13 @@ namespace WhatAmI.Content.src.terminal
             }
             else if(command == "ls")
             {
-                th.addLine("");
+                th.addLine("",true);
                 string[] entries = Directory.GetFileSystemEntries(cd.getDir());
                 foreach (string file in entries)
                 {
-                    th.addLine(Path.GetFileName(file));
-                    th.moveAnchor(new Vector2(0,-1 * th.getTextHeight()));
+                    th.addLine(Path.GetFileName(file),true);
                 }
-                th.addLine("");
-                th.moveAnchor(new Vector2(0, -2 * th.getTextHeight()));
+                th.addLine("", true);
             }
             else
                 Console.WriteLine("Command not recognzied: " + command);
