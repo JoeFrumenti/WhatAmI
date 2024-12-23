@@ -28,8 +28,23 @@ namespace WhatAmI.Content.src.terminal
                 {"cd", CD },
                 { "text", text },
                 {"ls", ls },
-                {"exit", exit }
+                {"exit", exit },
+                {"touch", touch }
             };
+
+        }
+        private void touch(string[] args)
+        {
+            if(args.Length == 0)
+            {
+                th.addPrefix("No filename given", true);
+                return;
+            }
+            string filepath = cd.getDir() + "//" + args[0];
+            using (FileStream fs = File.Create(filepath))
+            {
+                // File is created and automatically closed by the 'using' block
+            }
 
         }
         private void CD(string[] args)

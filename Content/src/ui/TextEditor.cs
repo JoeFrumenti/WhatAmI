@@ -37,6 +37,7 @@ namespace WhatAmI
                 }
                 textHandler.setXOffset(0);
                 textHandler.setYOffset(0);
+                textHandler.setLines(textHandler.getLines().GetRange(1,textHandler.getLines().Count - 1));
             }
             else
             {
