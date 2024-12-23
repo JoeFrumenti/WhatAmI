@@ -31,9 +31,17 @@ namespace WhatAmI.Content.src.terminal
                 {"ls", ls },
                 {"exit", exit },
                 {"touch", touch },
-                {"makePlayer", makePlayer }
+                {"makePlayer", makePlayer },
+                {"getArgs", getArgs }
             };
 
+        }
+        private void getArgs(string[] args)
+        {
+            foreach(string s in args)
+            {
+                th.addPrefix(s,true);
+            }
         }
         private void makePlayer(string[] args)
         {
@@ -124,7 +132,7 @@ namespace WhatAmI.Content.src.terminal
 
         private void ExecuteCommand(string input)
         {
-            string[] parts = input.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            string[] parts = input.Split(new[] {' ', '(',',',')' }, StringSplitOptions.RemoveEmptyEntries);
             if (parts.Length == 0) return;
 
             string command = parts[0];
