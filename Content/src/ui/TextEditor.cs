@@ -16,7 +16,7 @@ namespace WhatAmI
 
         internal TextEditor(SpriteFont font)
         {
-            textHandler = new TextHandler(font, new Vector2(10, 100));
+            textHandler = new TextHandler(font, new Vector2(100, 100));
             fileManager = new FileManager();
         }
 

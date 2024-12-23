@@ -76,6 +76,7 @@ namespace WhatAmI.Content.src.terminal
                     th.moveAnchor(new Vector2(0,-1 * th.getTextHeight()));
                 }
                 th.addLine("");
+                th.moveAnchor(new Vector2(0, -2 * th.getTextHeight()));
             }
             else
                 Console.WriteLine("Command not recognzied: " + command);
