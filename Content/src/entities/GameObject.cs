@@ -13,6 +13,8 @@ namespace WhatAmI
     {
         public Renderer renderer{  get; private set; }
         public Vector2 Position { get; private set; }
+
+        public GameObject() { }
         public GameObject(Texture2D texture, Vector2 position)
         {
             renderer = new Renderer(texture);

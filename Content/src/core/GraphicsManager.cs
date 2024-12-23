@@ -7,6 +7,7 @@ using System.Numerics;
 using System;
 using Microsoft.Xna.Framework.Content;
 using WhatAmI.Content.src.entities;
+using Vector2 = System.Numerics.Vector2;
 
 namespace WhatAmI.Content.src.core
 {
@@ -28,7 +29,7 @@ namespace WhatAmI.Content.src.core
         internal void setPlayer()
         {
 
-            player = new Player(generateTexture("env\\green16.png"));
+            player = new Player(generateTexture("env\\green16.png"), new Vector2(100,100));
         }
         internal void setGametime(GameTime gametime)
         {

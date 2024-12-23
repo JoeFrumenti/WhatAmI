@@ -6,18 +6,19 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 
 using WhatAmI.Content.src.core;
+using System;
 
 namespace WhatAmI.Content.src.entities;
 
-internal class Player : UD
+internal class Player : GameObject
 {
     float speed;
     Vector2 pos;
     Texture2D texture;
-    internal Player(Texture2D tex)
+    internal Player(Texture2D tex, Vector2 pos) : base(tex,pos)
     {
         speed = 100f;
-        pos = new Vector2(0,0);
+        this.pos = pos;
         texture = tex;
     }
     internal Texture2D getTex()
@@ -76,10 +77,15 @@ internal class Player : UD
     }
     internal override void Update()
     {
-
+        pos.X ++;
     }
     internal override void Draw()
     {
-
+        if (Game1.Instance.spriteBatch == null)
+            Console.WriteLine("Null, but drawing object with graphics device anyways!");
+        else
+        {
+            renderer.draw(Game1.Instance.spriteBatch, pos);
+        }
     }
 }

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using WhatAmI.Content.src.core;
+using WhatAmI.Content.src.entities;
 using Vector2 = System.Numerics.Vector2;
 
 namespace WhatAmI.Content.src.terminal
@@ -29,9 +30,19 @@ namespace WhatAmI.Content.src.terminal
                 { "text", text },
                 {"ls", ls },
                 {"exit", exit },
-                {"touch", touch }
+                {"touch", touch },
+                {"makePlayer", makePlayer }
             };
 
+        }
+        private void makePlayer(string[] args)
+        {
+            
+            Player player = new Player(Game1.Instance._graphicsManager.generateTexture("env\\green16.png"), new Microsoft.Xna.Framework.Vector2(100,100));
+            if (args.Length > 0)
+                Game1.Instance.prepUD(args[0],player);
+            else
+                Game1.Instance.prepUD("player", player);
         }
         private void touch(string[] args)
         {

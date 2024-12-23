@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using WhatAmI.Content.src.core;
+using WhatAmI.Content.src.entities;
 using WhatAmI.Content.src.terminal;
 
 namespace WhatAmI
@@ -26,6 +27,8 @@ namespace WhatAmI
         private Dictionary<string, UD> prepCache = new Dictionary<string, UD>();
 
         TextEditor te;
+
+        Player p;
 
 
         //terminal
@@ -78,6 +81,9 @@ namespace WhatAmI
 
             //te = new TextEditor(Content.Load<SpriteFont>("fonts/Courier"));
             //uds.Add("txt", te);
+
+            p = new Player(_graphicsManager.generateTexture("env\\green16.png"), new Vector2(100,100));
+            uds.Add("p", p);
 
         }
 
