@@ -23,13 +23,34 @@ namespace WhatAmI
 
         //objects
         private Dictionary<string, UD> uds = new Dictionary<string, UD>();
+        private Dictionary<string, UD> prepCache = new Dictionary<string, UD>();
+
+        TextEditor te;
 
 
         //terminal
         Terminal terminal;
+        internal void moveCache()
+        {
+            foreach (var kvp in prepCache)
+            {
+                uds[kvp.Key] = kvp.Value;
+
+            }
+            prepCache.Clear();
+        }
         internal void removeUD(string name)
         {
             uds.Remove(name);
+        }
+        internal void prepUD(string name, UD ud)
+        {
+            prepCache.Add(name, ud);
+        }
+        internal void addUD(string key, UD ud)
+        {
+            Console.WriteLine("ADDING: " + key);
+            uds.Add(key, ud);
         }
         public Game1()
         {
@@ -54,7 +75,10 @@ namespace WhatAmI
             //Terminal 
             terminal = new Terminal();
             uds.Add("terminal", terminal);
-            
+
+            //te = new TextEditor(Content.Load<SpriteFont>("fonts/Courier"));
+            //uds.Add("txt", te);
+
         }
 
         protected override void Update(GameTime gameTime)
@@ -86,6 +110,8 @@ namespace WhatAmI
             }
 
             spriteBatch.End();
+
+            moveCache();
 
             base.Draw(gameTime);
         }

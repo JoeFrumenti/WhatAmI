@@ -20,11 +20,19 @@ namespace WhatAmI
             fileManager = new FileManager();
         }
 
+        
+
         internal override void Update()
         {
             textHandler.Update();
+            if (Game1.Instance.kh.keyPressed(Keys.Enter)) { 
+                textHandler.handleEnter(); 
+                textHandler.setYOffset(textHandler.getYOffset() + 1);
+            }
             
         }
+
+
         internal override void Draw()
         {
             textHandler.Draw();

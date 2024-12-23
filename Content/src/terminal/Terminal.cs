@@ -58,15 +58,24 @@ namespace WhatAmI.Content.src.terminal
                 cd.parseCommand(command);
             else if(command == "exit") 
                 exit();
+            else if(command == "text")
+            {
+                TextEditor te = new TextEditor(Game1.Instance.Content.Load<SpriteFont>("fonts/Courier"));
+                Game1.Instance.prepUD("TextEditor", te);
+                exit();
+
+
+            }
             else if(command == "ls")
             {
+                th.addLine("");
                 string[] entries = Directory.GetFileSystemEntries(cd.getDir());
-                Console.WriteLine("Files:");
                 foreach (string file in entries)
                 {
                     th.addLine(Path.GetFileName(file));
                     th.moveAnchor(new Vector2(0,-1 * th.getTextHeight()));
                 }
+                th.addLine("");
             }
             else
                 Console.WriteLine("Command not recognzied: " + command);
