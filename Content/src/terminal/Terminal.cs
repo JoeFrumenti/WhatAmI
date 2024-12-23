@@ -53,7 +53,7 @@ namespace WhatAmI.Content.src.terminal
             }
             else
             {
-                Console.WriteLine("File does not exist.");
+                th.addPrefix("File does not exist.",true);
             }
         }
         private void getArgs(string[] args)
@@ -163,7 +163,7 @@ namespace WhatAmI.Content.src.terminal
             }
             else
             {
-                Console.WriteLine($"Unknown command: {command}");
+                th.addPrefix($"Unknown command: {command}",true);
             }
         }
 
