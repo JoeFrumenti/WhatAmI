@@ -32,9 +32,29 @@ namespace WhatAmI.Content.src.terminal
                 {"exit", exit },
                 {"touch", touch },
                 {"makePlayer", makePlayer },
-                {"getArgs", getArgs }
+                {"getArgs", getArgs },
+                {"run", runFile }
             };
 
+        }
+        private void runFile(string[] args)
+        {
+            string filePath = cd.getDir() + "\\" + args[0];
+            if (File.Exists(filePath))
+            {
+                // Read all lines into a list of strings
+                List<string> lines = new List<string>(File.ReadAllLines(filePath));
+
+                foreach (string s in lines)
+                {
+                    ExecuteCommand(s);
+                }
+
+            }
+            else
+            {
+                Console.WriteLine("File does not exist.");
+            }
         }
         private void getArgs(string[] args)
         {
@@ -46,11 +66,11 @@ namespace WhatAmI.Content.src.terminal
         private void makePlayer(string[] args)
         {
             
-            Player player = new Player(Game1.Instance._graphicsManager.generateTexture("env\\green16.png"), new Microsoft.Xna.Framework.Vector2(100,100));
+            Player player = new Player(Game1.Instance._graphicsManager.generateTexture("env\\green16.png"), new Microsoft.Xna.Framework.Vector2(int.Parse(args[1]), int.Parse(args[2])));
             if (args.Length > 0)
                 Game1.Instance.prepUD(args[0],player);
             else
-                Game1.Instance.prepUD("player", player);
+                Game1.Instance.prepUD(args[0], player);
         }
         private void touch(string[] args)
         {
@@ -132,7 +152,7 @@ namespace WhatAmI.Content.src.terminal
 
         private void ExecuteCommand(string input)
         {
-            string[] parts = input.Split(new[] {' ', '(',',',')' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] parts = input.Split(new[] {'(',',',')' }, StringSplitOptions.RemoveEmptyEntries);
             if (parts.Length == 0) return;
 
             string command = parts[0];

@@ -29,15 +29,18 @@ namespace WhatAmI
             {
                 currentFileName = filePath;
                 // Read all lines into a list of strings
+                textHandler.setLines(new List<string> { });
                 List<string> lines = new List<string>(File.ReadAllLines(filePath));
 
                 foreach(string s in lines)
                 {
                     textHandler.addLine(s,false);
                 }
+                if(textHandler.getLines().Count == 0)
+                    textHandler.addLine("",false);
+
                 textHandler.setXOffset(0);
                 textHandler.setYOffset(0);
-                textHandler.setLines(textHandler.getLines().GetRange(1,textHandler.getLines().Count - 1));
             }
             else
             {
