@@ -73,16 +73,27 @@ namespace WhatAmI.Content.src.orb
 
         internal object? compileObject(string code)
         {
-
+            Console.Write(code);
             var syntaxTree = CSharpSyntaxTree.ParseText(code);
+            string userProfile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            string monoGamePath = @"C:\Users\joefr\.nuget\packages\monogame.framework.desktopgl\3.8.2.1105\lib\net8.0\MonoGame.Framework.dll";
+            if (!File.Exists(monoGamePath))
+            {
+                Console.WriteLine("Error: MonoGame.Framework.dll not found!");
+                return null;
+            }
+
+            
 
             var references = new[]
             {
                 MetadataReference.CreateFromFile(typeof(object).Assembly.Location), // mscorlib or System.Private.CoreLib
                 MetadataReference.CreateFromFile(typeof(Console).Assembly.Location), // System.Console
                 MetadataReference.CreateFromFile(Path.Combine(Path.GetDirectoryName(typeof(object).Assembly.Location),"System.Runtime.dll")),
-                MetadataReference.CreateFromFile(Assembly.GetExecutingAssembly().Location) // Current assembly
-            };
+                MetadataReference.CreateFromFile(Assembly.GetExecutingAssembly().Location), // Current assembly
+                MetadataReference.CreateFromFile(monoGamePath)
+
+        };
 
 
             // Create a compilation
@@ -122,22 +133,21 @@ namespace WhatAmI.Content.src.orb
 
         }
 
-        internal void castSorcery(string filePath)
+        internal object? castSorcery(string filePath)
         {
             string sorcery = "";
             try
             {
                 // Read the entire content of the file into a string
-                sorcery = string.Join(" ", File.ReadAllLines(filePath));
-                // Output the content to the console
-                Console.WriteLine(sorcery);
+                sorcery = File.ReadAllText(filePath);                // Output the content to the console
+                //Console.WriteLine(sorcery);
             }
             catch (Exception ex)
             {
                 // Handle exceptions, e.g., file not found or access denied
                 Console.WriteLine($"An error occurred: {ex.Message}");
             }
-            compileObject(sorcery);
+            return compileObject(sorcery);
         }
 
         internal object? makePlayer()

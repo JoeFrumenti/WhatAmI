@@ -45,7 +45,7 @@ namespace WhatAmI.Content.src.terminal
         }
         private void firstSorcery(string[] args)
         {
-            orb.castSorcery(cd.getDir() + "\\scripts\\uds\\scream.sor");
+            Game1.Instance.prepUD("fireball", (UD)orb.castSorcery(cd.getDir() + "\\scripts\\uds\\scream.sor"));
         }
         private void orbPlayer(string[] args)
         {
