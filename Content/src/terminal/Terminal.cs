@@ -37,9 +37,14 @@ namespace WhatAmI.Content.src.terminal
                 {"getArgs", getArgs },
                 {"run", runFile },
                 {"orb", orbHello },
-                {"orbtest", orbTest }
+                {"orbtest", orbTest },
+                {"ORB", orbPlayer }
             };
 
+        }
+        private void orbPlayer(string[] args)
+        {
+            Game1.Instance.prepUD("chuck",(UD)orb.makePlayer());
         }
         private void orbTest(string[] args) { orb.testHello(); }
         private void orbHello(string[] args) { th.addPrefix((string)orb.hello(), true); }
