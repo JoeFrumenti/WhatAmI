@@ -17,16 +17,16 @@ namespace WhatAmI.Content.src.orb
         {
             Console.WriteLine("Hello!");
         }
-        internal void hello()
+        internal object? hello()
         {
             string code = @"
             using System;
 
             public class DynamicClass
             {
-                public void SayHello()
+                public string SayHello()
                 {
-                    Console.WriteLine(""Hello, World!"");
+                    return(""Hello, World!"");
                 }
             }";
 
@@ -36,7 +36,7 @@ namespace WhatAmI.Content.src.orb
             {
                 MetadataReference.CreateFromFile(typeof(object).Assembly.Location), // mscorlib or System.Private.CoreLib
                 MetadataReference.CreateFromFile(typeof(Console).Assembly.Location), // System.Console
-MetadataReference.CreateFromFile(Path.Combine(Path.GetDirectoryName(typeof(object).Assembly.Location),"System.Runtime.dll")),
+                MetadataReference.CreateFromFile(Path.Combine(Path.GetDirectoryName(typeof(object).Assembly.Location),"System.Runtime.dll")),
                 MetadataReference.CreateFromFile(Assembly.GetExecutingAssembly().Location) // Current assembly
             };
 
@@ -60,7 +60,7 @@ MetadataReference.CreateFromFile(Path.Combine(Path.GetDirectoryName(typeof(objec
                 {
                     Console.WriteLine(diagnostic.ToString());
                 }
-                return;
+                return null;
             }
 
             // Load the compiled assembly
@@ -75,7 +75,7 @@ MetadataReference.CreateFromFile(Path.Combine(Path.GetDirectoryName(typeof(objec
 
             // Invoke the SayHello method
             var method = dynamicType.GetMethod("SayHello");
-            method.Invoke(instance, null);
+            return method.Invoke(instance, null);
 
 
         }

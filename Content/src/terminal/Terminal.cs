@@ -42,7 +42,7 @@ namespace WhatAmI.Content.src.terminal
 
         }
         private void orbTest(string[] args) { orb.testHello(); }
-        private void orbHello(string[] args) { orb.hello(); }
+        private void orbHello(string[] args) { th.addPrefix((string)orb.hello(), true); }
         private void runFile(string[] args)
         {
             string filePath = cd.getDir() + "\\" + args[0];
