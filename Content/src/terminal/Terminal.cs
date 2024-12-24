@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using WhatAmI.Content.src.core;
 using WhatAmI.Content.src.entities;
+using WhatAmI.Content.src.orb;
 using Vector2 = System.Numerics.Vector2;
 
 namespace WhatAmI.Content.src.terminal
@@ -14,11 +15,12 @@ namespace WhatAmI.Content.src.terminal
     {
         TextHandler th;
         CD cd;
+        Orb orb;
         private Dictionary<string, Action<string[]>> commands;
         internal Terminal()
         {
             th = new TextHandler(Game1.Instance.Content.Load<SpriteFont>("fonts/Courier"), new Vector2(100, 1000));
-            
+            orb = new Orb();
             cd = new CD();
             th.setPrefixAtIndex(0, cd.getDir() + ">");
             th.setXOffset(th.getCurrentLine().Length);
@@ -33,10 +35,14 @@ namespace WhatAmI.Content.src.terminal
                 {"touch", touch },
                 {"makePlayer", makePlayer },
                 {"getArgs", getArgs },
-                {"run", runFile }
+                {"run", runFile },
+                {"orb", orbHello },
+                {"orbtest", orbTest }
             };
 
         }
+        private void orbTest(string[] args) { orb.testHello(); }
+        private void orbHello(string[] args) { orb.hello(); }
         private void runFile(string[] args)
         {
             string filePath = cd.getDir() + "\\" + args[0];
