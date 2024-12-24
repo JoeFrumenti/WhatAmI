@@ -21,13 +21,16 @@ namespace WhatAmI.Content.src.orb
         {
             string code = @"
             using System;
-
+            using WhatAmI.Content.src.terminal;
+            
             public class DynamicClass
             {
+                Terminal t;
                 public string SayHello()
                 {
                     return(""Hello, World!"");
                 }
+                
             }";
 
             var syntaxTree = CSharpSyntaxTree.ParseText(code);

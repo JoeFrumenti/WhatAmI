@@ -10,7 +10,11 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
-  <ItemGroup>
+    <PropertyGroup>
+	    <InternalsVisibleTo>DynamicAssembly</InternalsVisibleTo>
+    </PropertyGroup>
+
+	<ItemGroup>
     <None Remove="Icon.ico" />
     <None Remove="Icon.bmp" />
   </ItemGroup>
