@@ -22,14 +22,19 @@ namespace WhatAmI.Content.src.orb
             string code = @"
             using System;
             using WhatAmI.Content.src.terminal;
+            using WhatAmI.Content.src.core;
+
             
-            public class DynamicClass
+            internal class DynamicClass : UD
             {
                 Terminal t;
                 public string SayHello()
                 {
                     return(""Hello, World!"");
                 }
+
+                internal override void Update(){}
+                internal override void Draw(){}
                 
             }";
 
