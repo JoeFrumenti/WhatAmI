@@ -17,26 +17,9 @@ namespace WhatAmI.Content.src.orb
         {
             Console.WriteLine("Hello!");
         }
-        internal object? hello()
+
+        internal object? compile(string code)
         {
-            string code = @"
-            using System;
-            using WhatAmI.Content.src.terminal;
-            using WhatAmI.Content.src.core;
-
-            
-            internal class DynamicClass : UD
-            {
-                Terminal t;
-                public string SayHello()
-                {
-                    return(""Hello, World!"");
-                }
-
-                internal override void Update(){}
-                internal override void Draw(){}
-                
-            }";
 
             var syntaxTree = CSharpSyntaxTree.ParseText(code);
 
@@ -86,6 +69,28 @@ namespace WhatAmI.Content.src.orb
             return method.Invoke(instance, null);
 
 
+        }
+        internal object? hello()
+        {
+            string code = @"
+            using System;
+            using WhatAmI.Content.src.terminal;
+            using WhatAmI.Content.src.core;
+
+            
+            internal class DynamicClass : UD
+            {
+                Terminal t;
+                public string SayHello()
+                {
+                    return(""Hello, World!"");
+                }
+
+                internal override void Update(){}
+                internal override void Draw(){}
+                
+            }";
+            return compile(code);
         }
     }
 }
