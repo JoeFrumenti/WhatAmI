@@ -122,6 +122,24 @@ namespace WhatAmI.Content.src.orb
 
         }
 
+        internal void castSorcery(string filePath)
+        {
+            string sorcery = "";
+            try
+            {
+                // Read the entire content of the file into a string
+                sorcery = string.Join(" ", File.ReadAllLines(filePath));
+                // Output the content to the console
+                Console.WriteLine(sorcery);
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions, e.g., file not found or access denied
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
+            compileObject(sorcery);
+        }
+
         internal object? makePlayer()
         {
             string code = @"

@@ -38,9 +38,14 @@ namespace WhatAmI.Content.src.terminal
                 {"run", runFile },
                 {"orb", orbHello },
                 {"orbtest", orbTest },
-                {"ORB", orbPlayer }
+                {"ORB", orbPlayer },
+                {"fireball", firstSorcery }
             };
 
+        }
+        private void firstSorcery(string[] args)
+        {
+            orb.castSorcery(cd.getDir() + "\\scripts\\uds\\scream.sor");
         }
         private void orbPlayer(string[] args)
         {
