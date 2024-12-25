@@ -13,7 +13,9 @@ namespace WhatAmI
     {
         //Singleton
         private static Game1 _instance;
+        
         public static Game1 Instance => _instance;
+        public GameTime CurrentGameTime { get; set; }
         internal KeyHandler kh;
 
 
@@ -89,6 +91,7 @@ namespace WhatAmI
 
         protected override void Update(GameTime gameTime)
         {
+            CurrentGameTime = gameTime;
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
