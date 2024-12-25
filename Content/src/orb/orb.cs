@@ -7,6 +7,8 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using System.Reflection;
 using System.IO;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
 
 namespace WhatAmI.Content.src.orb
 {
@@ -71,9 +73,9 @@ namespace WhatAmI.Content.src.orb
 
         }
 
-        internal object? compileObject(string code)
+        internal object? compileObject(string code, Texture2D tex)
         {
-            Console.Write(code);
+            //Console.Write(code);
             var syntaxTree = CSharpSyntaxTree.ParseText(code);
             string userProfile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
             string monoGamePath = @"C:\Users\joefr\.nuget\packages\monogame.framework.desktopgl\3.8.2.1105\lib\net8.0\MonoGame.Framework.dll";
@@ -92,7 +94,6 @@ namespace WhatAmI.Content.src.orb
                 MetadataReference.CreateFromFile(Path.Combine(Path.GetDirectoryName(typeof(object).Assembly.Location),"System.Runtime.dll")),
                 MetadataReference.CreateFromFile(Assembly.GetExecutingAssembly().Location), // Current assembly
                 MetadataReference.CreateFromFile(monoGamePath)
-
         };
 
 
@@ -125,15 +126,28 @@ namespace WhatAmI.Content.src.orb
             // Get the type of the dynamic class
             var dynamicType = assembly.GetType("DynamicClass");
 
+
+            object[] constructorArgs = { tex, new Vector2(100, 100) }; // Replace with your actual parameter values
+            if (dynamicType == null)
+            {
+                Console.WriteLine("dynamicType is null. The type 'DynamicClass' was not found in the assembly.");
+            }
+
+            var constructors = dynamicType.GetConstructors();
+            foreach (var ctor in constructors)
+            {
+                Console.WriteLine(ctor);
+            }
+
             // Create an instance of the dynamic class
-            var instance = Activator.CreateInstance(dynamicType);
+            var instance = Activator.CreateInstance(dynamicType, constructorArgs);
 
             return instance;
 
 
         }
 
-        internal object? castSorcery(string filePath)
+        internal object? castSorcery(string filePath,Texture2D tex)
         {
             string sorcery = "";
             try
@@ -147,10 +161,10 @@ namespace WhatAmI.Content.src.orb
                 // Handle exceptions, e.g., file not found or access denied
                 Console.WriteLine($"An error occurred: {ex.Message}");
             }
-            return compileObject(sorcery);
+            return compileObject(sorcery, tex);
         }
 
-        internal object? makePlayer()
+        internal object? makePlayer(Texture2D tex)
         {
             string code = @"
             using System;
@@ -168,7 +182,7 @@ namespace WhatAmI.Content.src.orb
                 internal override void Draw(){Console.WriteLine(""BBB"");}
                 
             }";
-            return compileObject(code);
+            return compileObject(code,tex);
         }
         internal object? hello()
         {

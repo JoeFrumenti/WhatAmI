@@ -7,7 +7,6 @@ using System.IO;
 using WhatAmI.Content.src.core;
 using WhatAmI.Content.src.entities;
 using WhatAmI.Content.src.orb;
-using Vector2 = System.Numerics.Vector2;
 
 namespace WhatAmI.Content.src.terminal
 {
@@ -45,11 +44,11 @@ namespace WhatAmI.Content.src.terminal
         }
         private void firstSorcery(string[] args)
         {
-            Game1.Instance.prepUD("fireball", (UD)orb.castSorcery(cd.getDir() + "\\scripts\\uds\\scream.sor"));
+            Game1.Instance.prepUD("fireball", (UD)orb.castSorcery(cd.getDir() + "\\scripts\\uds\\scream.sor", Game1.Instance._graphicsManager.generateTexture("assets\\textures\\env\\green16.png")));
         }
         private void orbPlayer(string[] args)
         {
-            Game1.Instance.prepUD("chuck",(UD)orb.makePlayer());
+            Game1.Instance.prepUD("chuck",(UD)orb.makePlayer(Game1.Instance._graphicsManager.generateTexture("assets\\textures\\env\\green16.png")));
         }
         private void orbTest(string[] args) { orb.testHello(); }
         private void orbHello(string[] args) { th.addPrefix((string)orb.hello(), true); }

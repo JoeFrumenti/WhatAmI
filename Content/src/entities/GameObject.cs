@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using WhatAmI.Content.src.core;
 
-namespace WhatAmI
+namespace WhatAmI.Content.src.entities
 {
     internal class GameObject : UD
     {
