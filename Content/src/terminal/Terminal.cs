@@ -145,9 +145,10 @@ namespace WhatAmI.Content.src.terminal
         {
             if (Game1.Instance.kh.keyPressed(Keys.Enter))
             {
-                ExecuteCommand(th.getCurrentLine());
 
                 th.setPrefix(cd.getDir() + ">");
+                th.setYOffset(th.getLines().Count - 1);
+                ExecuteCommand(th.getCurrentLine());
                 th.Update();
                 th.handleEnter();
                 th.moveAnchor(new Vector2(0, -1 * th.getTextHeight()));
@@ -167,7 +168,7 @@ namespace WhatAmI.Content.src.terminal
 
         private void ExecuteCommand(string input)
         {
-            string[] parts = input.Split(new[] {'(',',',')' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] parts = input.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
             if (parts.Length == 0) return;
 
             string command = parts[0];

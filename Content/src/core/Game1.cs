@@ -54,7 +54,7 @@ namespace WhatAmI
         }
         internal void addUD(string key, UD ud)
         {
-            Console.WriteLine("ADDING: " + key);
+            //Console.WriteLine("ADDING: " + key);
             uds.Add(key, ud);
         }
         public Game1()
