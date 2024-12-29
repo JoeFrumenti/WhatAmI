@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using WhatAmI.Content.src.entities;
 using WhatAmI.Content.src.orb;
+using WhatAmI.Content.src.ui;
 
 namespace WhatAmI.Content.src.terminal
 {
@@ -14,9 +15,11 @@ namespace WhatAmI.Content.src.terminal
         TextHandler th;
         CD cd;
         Orb orb;
+        Window window;
         private Dictionary<string, Action<string[]>> commands;
         internal Terminal()
         {
+            window = new Window(new Vector2(10,10), 100,70);
             th = new TextHandler(Game1.Instance.Content.Load<SpriteFont>("fonts/Courier"), new Vector2(100, 1000));
             orb = new Orb();
             cd = new CD();
@@ -163,7 +166,7 @@ namespace WhatAmI.Content.src.terminal
         }
         internal override void Draw()
         {
-            Game1.Instance.GraphicsDevice.Clear(Color.Black);
+            window.Draw();
             th.Draw();
         }
 
