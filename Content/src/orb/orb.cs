@@ -6,15 +6,21 @@ using System.Reflection;
 using System.IO;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using WhatAmI.Content.src.entities;
 
 namespace WhatAmI.Content.src.orb
 {
     internal class Orb
     {
-
+        Player dummy;
         internal void testHello()
         {
             Console.WriteLine("Hello!");
+        }
+
+        internal Orb()
+        {
+            dummy = new Player(Game1.Instance._graphicsManager.generateTexture("assets\\textures\\env\\green16.png"), new Vector2(100,100));
         }
 
         internal object? compileFunction(string code)
@@ -79,7 +85,7 @@ namespace WhatAmI.Content.src.orb
             if (!File.Exists(monoGamePath))
             {
                 Console.WriteLine("Error: MonoGame.Framework.dll not found!");
-                return null;
+                return dummy;
             }
 
             
@@ -113,7 +119,7 @@ namespace WhatAmI.Content.src.orb
                 {
                     Console.WriteLine(diagnostic.ToString());
                 }
-                return null;
+                return dummy;
             }
 
             // Load the compiled assembly
@@ -128,13 +134,11 @@ namespace WhatAmI.Content.src.orb
             if (dynamicType == null)
             {
                 Console.WriteLine("dynamicType is null. The type 'DynamicClass' was not found in the assembly.");
+                return dummy;
             }
 
-            var constructors = dynamicType.GetConstructors();
-            foreach (var ctor in constructors)
-            {
-                Console.WriteLine(ctor);
-            }
+
+            
 
             // Create an instance of the dynamic class
             var instance = Activator.CreateInstance(dynamicType, constructorArgs);
