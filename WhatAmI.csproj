@@ -15,6 +15,8 @@
     </PropertyGroup>
 
 	<ItemGroup>
+    <None Remove="Content\assets\textures\ui\MinIcon.aseprite" />
+    <None Remove="Content\assets\textures\ui\SmallScreen.aseprite" />
     <None Remove="Icon.ico" />
     <None Remove="Icon.bmp" />
   </ItemGroup>

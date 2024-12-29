@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using WhatAmI.Content.src.core;
 using WhatAmI.Content.src.entities;
 using WhatAmI.Content.src.terminal;
+using WhatAmI.Content.src.ui;
 
 namespace WhatAmI
 {
@@ -16,6 +17,7 @@ namespace WhatAmI
         
         public static Game1 Instance => _instance;
         public GameTime CurrentGameTime { get; set; }
+        public MouseState mouseState { get; set; }
         internal KeyHandler kh;
 
 
@@ -27,8 +29,8 @@ namespace WhatAmI
         //objects
         private Dictionary<string, UD> uds = new Dictionary<string, UD>();
         private Dictionary<string, UD> prepCache = new Dictionary<string, UD>();
+        private Button terminalButton;
 
-        TextEditor te;
 
         Player p;
 
@@ -62,7 +64,7 @@ namespace WhatAmI
             _instance = this;
             _graphicsManager = new GraphicsManager(this);
             _graphicsManager.init();
-            IsMouseVisible = true;
+            IsMouseVisible = false;
             
         }
 
@@ -87,11 +89,19 @@ namespace WhatAmI
             p = new Player(_graphicsManager.generateTexture("assets\\textures\\env\\green16.png"), new Vector2(100,100));
             uds.Add("p", p);
 
+            terminalButton = new Button(_graphicsManager.generateTexture("assets\\textures\\env\\green16.png"), new Rectangle(10,10,100,100));
+            terminalButton.OnClick += () =>
+            {
+                Console.WriteLine("AAAAA");
+            };
+            uds.Add("terminalIcon",terminalButton);
+
         }
 
         protected override void Update(GameTime gameTime)
         {
             CurrentGameTime = gameTime;
+            mouseState = Mouse.GetState();
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
