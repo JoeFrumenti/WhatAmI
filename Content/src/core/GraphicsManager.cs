@@ -93,7 +93,7 @@ namespace WhatAmI.Content.src.core
             SpriteBatch _spriteBatch = new SpriteBatch(game.GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            using (var stream = File.OpenRead(assetPath + "general\\fallback.png"))
+            using (var stream = File.OpenRead(assetPath + "\\assets\\textures\\general\\fallback.png"))
             {
                 tempTex = Texture2D.FromStream(game.GraphicsDevice, stream);
             }

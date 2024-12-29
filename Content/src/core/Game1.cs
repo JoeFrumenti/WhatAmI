@@ -29,34 +29,29 @@ namespace WhatAmI
         Texture2D mouseTexture;
 
         //objects
-        internal UDHandler newUds;
-
-        private Button terminalButton;
-
-
+        internal UDHandler uds;
+        internal ButtonHandler buttonHandler;
 
         Player p;
-
 
         //terminal
         Terminal terminal;
 
-       
         public Game1()
         {
             _instance = this;
             _graphicsManager = new GraphicsManager(this);
             _graphicsManager.init();
             IsMouseVisible = true;
-            newUds = new UDHandler();
-            
+            uds = new UDHandler();
+            buttonHandler = new ButtonHandler();
+            kh = new KeyHandler();
+
         }
 
         protected override void Initialize()
         {
             base.Initialize();
-            kh = new KeyHandler();
-
         }
 
         protected override void LoadContent()
@@ -66,19 +61,10 @@ namespace WhatAmI
             //Mouse
             mouseTexture = _graphicsManager.generateTexture("assets\\textures\\ui\\mouse.png");
 
-
             p = new Player(_graphicsManager.generateTexture("assets\\textures\\env\\green16.png"), new Vector2(100,100));
-            newUds.addUD(p);
+            uds.addUD(p);
 
-            terminalButton = new Button(_graphicsManager.generateTexture("assets\\textures\\ui\\TerminalIcon.png"), new Rectangle(10,10,100,100));
-            terminalButton.OnClick += () =>
-            {
-                Terminal terminal = new Terminal();
-                newUds.prepUD(terminal);
-            };
-            
-            newUds.addUD(terminalButton);
-
+            buttonHandler.initializeButtons();
         }
 
         protected override void Update(GameTime gameTime)
@@ -90,9 +76,7 @@ namespace WhatAmI
 
             KeyboardState state = Keyboard.GetState();
            
-           
-            newUds.Update();
-
+            uds.Update();
 
             base.Update(gameTime);
         }
@@ -103,15 +87,11 @@ namespace WhatAmI
             var keyboardState = Keyboard.GetState();
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-
-
-
-            newUds.Draw();
+            uds.Draw();
 
             spriteBatch.Begin();
             spriteBatch.Draw(mouseTexture, new Vector2(mouseState.X, mouseState.Y), Color.White);
             spriteBatch.End();
-
 
             base.Draw(gameTime);
         }

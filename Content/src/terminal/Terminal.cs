@@ -44,11 +44,11 @@ namespace WhatAmI.Content.src.terminal
         }
         private void firstSorcery(string[] args)
         {
-            Game1.Instance.newUds.prepUD((UD)orb.castSorcery(cd.getDir() + "\\scripts\\uds\\scream.sor", Game1.Instance._graphicsManager.generateTexture("assets\\textures\\env\\green16.png")));
+            Game1.Instance.uds.prepUD((UD)orb.castSorcery(cd.getDir() + "\\scripts\\uds\\scream.sor", Game1.Instance._graphicsManager.generateTexture("assets\\textures\\env\\green16.png")));
         }
         private void orbPlayer(string[] args)
         {
-            Game1.Instance.newUds.prepUD((UD)orb.makePlayer(Game1.Instance._graphicsManager.generateTexture("assets\\textures\\env\\green16.png")));
+            Game1.Instance.uds.prepUD((UD)orb.makePlayer(Game1.Instance._graphicsManager.generateTexture("assets\\textures\\env\\green16.png")));
         }
         private void orbTest(string[] args) { orb.testHello(); }
         private void orbHello(string[] args) { th.addPrefix((string)orb.hello(), true); }
@@ -83,9 +83,9 @@ namespace WhatAmI.Content.src.terminal
             
             Player player = new Player(Game1.Instance._graphicsManager.generateTexture("assets\\textures\\env\\green16.png"), new Microsoft.Xna.Framework.Vector2(int.Parse(args[1]), int.Parse(args[2])));
             if (args.Length > 0)
-                Game1.Instance.newUds.prepUD(player);
+                Game1.Instance.uds.prepUD(player);
             else
-                Game1.Instance.newUds.prepUD(player);
+                Game1.Instance.uds.prepUD(player);
         }
         private void touch(string[] args)
         {
@@ -120,7 +120,7 @@ namespace WhatAmI.Content.src.terminal
                 te.loadFile(cd.getDir() + "\\" + args[0]);
 
             }
-            Game1.Instance.newUds.prepUD( te);
+            Game1.Instance.uds.prepUD(te);
             exit([""]);
         }
         private void ls(string[] args)
@@ -139,7 +139,7 @@ namespace WhatAmI.Content.src.terminal
         }
         private void exit(string[] args)
         {
-            Game1.Instance.newUds.removeUD("terminal");
+            Game1.Instance.uds.removeUD("terminal");
         }
         internal override void Update()
         {
