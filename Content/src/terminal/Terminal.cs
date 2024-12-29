@@ -145,15 +145,16 @@ namespace WhatAmI.Content.src.terminal
         {
             if (Game1.Instance.kh.keyPressed(Keys.Enter))
             {
-
-                th.setPrefix(cd.getDir() + ">");
+                //move cursor to bottom
                 th.setYOffset(th.getLines().Count - 1);
+                
+                //run command
                 ExecuteCommand(th.getCurrentLine());
+
+                //add a new line
+                th.addPrefix(cd.getDir() + ">",true);
                 th.Update();
-                th.handleEnter();
-                th.moveAnchor(new Vector2(0, -1 * th.getTextHeight()));
-                th.setYOffset(th.getYOffset() + 1);
-                th.setXOffset(0);
+                
             }
 
             else

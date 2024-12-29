@@ -9,11 +9,11 @@ namespace WhatAmI.Content.src.terminal
 {
     internal class CD
     {
+
         private string dir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "WhatAmI");
         internal string getDir() { return dir;}
 
-        internal void parseCommand(string fullCommand) {
-            string command = fullCommand.Substring(fullCommand.IndexOf(" ") + 1);
+        internal void parseCommand(string command) {
             if(command =="..")
                 dir = Path.GetDirectoryName(dir);
             
