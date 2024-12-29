@@ -23,6 +23,18 @@ namespace WhatAmI.Content.src.ui
             this.color = c;
         }
 
+        internal Vector2 getBottomLeft(Vector2 offset)
+        {
+            int screenWidth = Game1.Instance.GraphicsDevice.Viewport.Width;
+            int screenHeight = Game1.Instance.GraphicsDevice.Viewport.Height;
+
+            float bottom = size.Y * screenHeight - anchor.Y * screenHeight;
+            bottom += offset.Y * screenHeight;
+
+            float left = anchor.X * screenWidth;
+            return this.anchor + new Vector2(left,bottom);
+        }
+
         internal override void Update() {
         }
 
@@ -41,7 +53,6 @@ namespace WhatAmI.Content.src.ui
             int windowWidth = (int)(size.X * screenWidth);
            
             Game1.Instance.spriteBatch.Draw(windowTexture, new Rectangle(screenX,screenY,windowWidth, windowHeight), color);
-            Console.WriteLine(windowWidth);
         }
     }
 }
