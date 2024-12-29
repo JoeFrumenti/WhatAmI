@@ -75,7 +75,7 @@ namespace WhatAmI.Content.src.core
                 SpriteBatch _spriteBatch = new SpriteBatch(game.GraphicsDevice);
                 //C:\Users\joefr\Desktop\Gamedev\WhatAmI\Content\assets\textures\env\green16.png
                 // TODO: use this.Content to load your game content here
-                using var stream = File.OpenRead(Path.Combine(assetPath, filePath)) ;
+                using var stream = File.OpenRead(Path.Combine(assetPath, filePath));
                 {
                     tempTex = Texture2D.FromStream(game.GraphicsDevice, stream);
                 }

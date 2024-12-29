@@ -25,6 +25,7 @@ namespace WhatAmI
         internal GraphicsManager _graphicsManager;
         internal GraphicsDeviceManager _graphics;
         internal SpriteBatch spriteBatch;
+        Texture2D mouseTexture;
 
         //objects
         private Dictionary<string, UD> uds = new Dictionary<string, UD>();
@@ -37,6 +38,12 @@ namespace WhatAmI
 
         //terminal
         Terminal terminal;
+
+        internal void addTerminal()
+        {
+            terminal = new Terminal();
+            prepUD("terminal", terminal);
+        }
         internal void moveCache()
         {
             foreach (var kvp in prepCache)
@@ -64,7 +71,7 @@ namespace WhatAmI
             _instance = this;
             _graphicsManager = new GraphicsManager(this);
             _graphicsManager.init();
-            IsMouseVisible = false;
+            IsMouseVisible = true;
             
         }
 
@@ -80,8 +87,10 @@ namespace WhatAmI
             spriteBatch = new SpriteBatch(GraphicsDevice);
             
             //Terminal 
-            terminal = new Terminal();
-            uds.Add("terminal", terminal);
+            
+
+            //Mouse
+            mouseTexture = _graphicsManager.generateTexture("assets\\textures\\ui\\mouse.png");
 
             //te = new TextEditor(Content.Load<SpriteFont>("fonts/Courier"));
             //uds.Add("txt", te);
@@ -89,11 +98,13 @@ namespace WhatAmI
             p = new Player(_graphicsManager.generateTexture("assets\\textures\\env\\green16.png"), new Vector2(100,100));
             uds.Add("p", p);
 
-            terminalButton = new Button(_graphicsManager.generateTexture("assets\\textures\\env\\green16.png"), new Rectangle(10,10,100,100));
+            terminalButton = new Button(_graphicsManager.generateTexture("assets\\textures\\ui\\TerminalIcon.png"), new Rectangle(10,10,100,100));
             terminalButton.OnClick += () =>
             {
-                Console.WriteLine("AAAAA");
+                Terminal terminal = new Terminal();
+                prepUD("terminal",terminal);
             };
+            ;
             uds.Add("terminalIcon",terminalButton);
 
         }
@@ -128,6 +139,7 @@ namespace WhatAmI
                 ud.Draw();
             }
 
+            spriteBatch.Draw(mouseTexture, new Vector2(mouseState.X, mouseState.Y), Color.White);
             spriteBatch.End();
 
             moveCache();
