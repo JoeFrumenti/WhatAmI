@@ -8,7 +8,7 @@ namespace WhatAmI.Content.src.entities
 {
     internal abstract class UD
     {
-        internal string name;
+        internal protected string name;
         internal abstract void Update();
         internal abstract void Draw();
 

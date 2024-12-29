@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using WhatAmI.Content.src.entities;
 
 namespace WhatAmI.Content.src.structures
@@ -12,15 +8,24 @@ namespace WhatAmI.Content.src.structures
 
         private List<UD> uds;
         private List<UD> prepCache;
+        
+
 
         public UDHandler() { 
             uds = new List<UD>();
             prepCache = new List<UD>();
         }
 
-        internal void prepUD(UD u) {
+        public List<UD> getUDs() { return uds; }
+
+        
+        internal void prepUD(UD u) 
+        {
             prepCache.Add(u);
         }
+
+
+
         internal void moveCache()
         {
             foreach(UD u in prepCache){
@@ -28,6 +33,8 @@ namespace WhatAmI.Content.src.structures
             }
             prepCache.Clear();
         }
+
+
         internal void removeUD(string name) {
             List<UD> temp = new List<UD> ();
             foreach(UD u in uds)
@@ -39,25 +46,34 @@ namespace WhatAmI.Content.src.structures
             }
             uds = temp;
         }
+
+
         internal void addUD(UD ud)
         {
             uds.Add(ud);
         }
 
+
+
+
         internal void Update()
         {
+            moveCache();
             foreach(UD u in uds)
             {
                 u.Update();
             }
-
         }
+
+
 
         internal void Draw()
         {
             foreach (UD u in uds)
             {
+                Game1.Instance.spriteBatch.Begin();
                 u.Draw();
+                Game1.Instance.spriteBatch.End();
             }
 
         }

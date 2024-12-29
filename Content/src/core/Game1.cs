@@ -29,10 +29,8 @@ namespace WhatAmI
         Texture2D mouseTexture;
 
         //objects
-        private UDHandler newUds;
+        internal UDHandler newUds;
 
-        private SortedDictionary<string, UD> uds = new SortedDictionary<string, UD>();
-        private Dictionary<string, UD> prepCache = new Dictionary<string, UD>();
         private Button terminalButton;
 
 
@@ -43,39 +41,14 @@ namespace WhatAmI
         //terminal
         Terminal terminal;
 
-        internal void addTerminal()
-        {
-            terminal = new Terminal();
-            prepUD("terminal", terminal);
-        }
-        internal void moveCache()
-        {
-            foreach (var kvp in prepCache)
-            {
-                uds[kvp.Key] = kvp.Value;
-
-            }
-            prepCache.Clear();
-        }
-        internal void removeUD(string name)
-        {
-            uds.Remove(name);
-        }
-        internal void prepUD(string name, UD ud)
-        {
-            prepCache.Add(name, ud);
-        }
-        internal void addUD(string key, UD ud)
-        {
-            //Console.WriteLine("ADDING: " + key);
-            uds.Add(key, ud);
-        }
+       
         public Game1()
         {
             _instance = this;
             _graphicsManager = new GraphicsManager(this);
             _graphicsManager.init();
             IsMouseVisible = true;
+            newUds = new UDHandler();
             
         }
 
@@ -90,26 +63,21 @@ namespace WhatAmI
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             
-            //Terminal 
-            
-
             //Mouse
             mouseTexture = _graphicsManager.generateTexture("assets\\textures\\ui\\mouse.png");
 
-            //te = new TextEditor(Content.Load<SpriteFont>("fonts/Courier"));
-            //uds.Add("txt", te);
 
             p = new Player(_graphicsManager.generateTexture("assets\\textures\\env\\green16.png"), new Vector2(100,100));
-            uds.Add("p", p);
+            newUds.addUD(p);
 
             terminalButton = new Button(_graphicsManager.generateTexture("assets\\textures\\ui\\TerminalIcon.png"), new Rectangle(10,10,100,100));
             terminalButton.OnClick += () =>
             {
                 Terminal terminal = new Terminal();
-                prepUD("2",terminal);
+                newUds.prepUD(terminal);
             };
             
-            uds.Add("1",terminalButton);
+            newUds.addUD(terminalButton);
 
         }
 
@@ -122,10 +90,10 @@ namespace WhatAmI
 
             KeyboardState state = Keyboard.GetState();
            
-            foreach (UD ud in uds.Values)
-            {
-                ud.Update();
-            }
+           
+            newUds.Update();
+
+
             base.Update(gameTime);
         }
 
@@ -137,17 +105,13 @@ namespace WhatAmI
 
 
 
-            foreach (UD ud in uds.Values)
-            {
-                spriteBatch.Begin();
-                ud.Draw(); 
-                spriteBatch.End();
-            }
+
+            newUds.Draw();
+
             spriteBatch.Begin();
             spriteBatch.Draw(mouseTexture, new Vector2(mouseState.X, mouseState.Y), Color.White);
             spriteBatch.End();
 
-            moveCache();
 
             base.Draw(gameTime);
         }
