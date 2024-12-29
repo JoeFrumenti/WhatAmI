@@ -19,7 +19,7 @@ namespace WhatAmI.Content.src.terminal
         private Dictionary<string, Action<string[]>> commands;
         internal Terminal()
         {
-            window = new Window(new Vector2(10,10), 100,70);
+            window = new Window(new Vector2(10,10), 100,70,Color.Black);
             th = new TextHandler(Game1.Instance.Content.Load<SpriteFont>("fonts/Courier"), new Vector2(100, 1000));
             orb = new Orb();
             cd = new CD();

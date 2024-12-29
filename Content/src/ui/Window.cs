@@ -15,12 +15,14 @@ namespace WhatAmI.Content.src.ui
         internal Vector2 anchor;
         internal int height;
         internal int width;
+        internal Color color;
 
-        public Window(Vector2 anch, int h, int w) 
+        public Window(Vector2 anch, int w, int h, Color c) 
         {
             this.anchor = anch;
             this.height = h;
             this.width = w;
+            this.color = c;
         }
 
         internal override void Update() {
@@ -29,7 +31,7 @@ namespace WhatAmI.Content.src.ui
         internal override void Draw()
         {
             Texture2D windowTexture = new Texture2D(Game1.Instance.spriteBatch.GraphicsDevice, 1, 1);
-            windowTexture.SetData(new[] { Color.White });
+            windowTexture.SetData(new[] { color});
 
            
             Game1.Instance.spriteBatch.Draw(windowTexture, new Rectangle((int)anchor.X,(int)anchor.Y, width,height), Color.White);
