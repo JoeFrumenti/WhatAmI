@@ -13,15 +13,13 @@ namespace WhatAmI.Content.src.ui
     internal class Window : UD
     {
         internal Vector2 anchor;
-        internal int height;
-        internal int width;
+        internal Vector2 size;
         internal Color color;
 
-        public Window(Vector2 anch, int w, int h, Color c) 
+        public Window(Vector2 anch, Vector2 s, Color c) 
         {
             this.anchor = anch;
-            this.height = h;
-            this.width = w;
+            this.size = s;
             this.color = c;
         }
 
@@ -33,8 +31,17 @@ namespace WhatAmI.Content.src.ui
             Texture2D windowTexture = new Texture2D(Game1.Instance.spriteBatch.GraphicsDevice, 1, 1);
             windowTexture.SetData(new[] { color});
 
+            int screenWidth = Game1.Instance.GraphicsDevice.Viewport.Width;
+            int screenHeight = Game1.Instance.GraphicsDevice.Viewport.Height;
+
+            int screenX = (int)(anchor.X * screenWidth);
+            int screenY = (int)(anchor.Y * screenHeight);
+
+            int windowHeight = (int)(size.Y * screenHeight);
+            int windowWidth = (int)(size.X * screenWidth);
            
-            Game1.Instance.spriteBatch.Draw(windowTexture, new Rectangle((int)anchor.X,(int)anchor.Y, width,height), Color.White);
+            Game1.Instance.spriteBatch.Draw(windowTexture, new Rectangle(screenX,screenY,windowWidth, windowHeight), color);
+            Console.WriteLine(windowWidth);
         }
     }
 }
