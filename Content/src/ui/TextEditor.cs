@@ -4,11 +4,11 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using WhatAmI.Content.src.core;
+using WhatAmI.Content.src.entities;
 
 namespace WhatAmI
 {
-    
+
     internal class TextEditor : UD
     {
         TextHandler textHandler;

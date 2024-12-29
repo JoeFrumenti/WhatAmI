@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using WhatAmI.Content.src.core;
 using WhatAmI.Content.src.entities;
 using WhatAmI.Content.src.orb;
 
@@ -23,6 +22,7 @@ namespace WhatAmI.Content.src.terminal
             cd = new CD();
             th.setPrefixAtIndex(0, cd.getDir() + ">");
             th.setXOffset(th.getCurrentLine().Length);
+            name = "terminal";
 
             commands = new Dictionary<string, Action<string[]>>
             {

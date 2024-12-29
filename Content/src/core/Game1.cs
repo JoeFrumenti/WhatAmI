@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using WhatAmI.Content.src.core;
 using WhatAmI.Content.src.entities;
+using WhatAmI.Content.src.structures;
 using WhatAmI.Content.src.terminal;
 using WhatAmI.Content.src.ui;
 
@@ -28,9 +29,12 @@ namespace WhatAmI
         Texture2D mouseTexture;
 
         //objects
-        private Dictionary<string, UD> uds = new Dictionary<string, UD>();
+        private UDHandler newUds;
+
+        private SortedDictionary<string, UD> uds = new SortedDictionary<string, UD>();
         private Dictionary<string, UD> prepCache = new Dictionary<string, UD>();
         private Button terminalButton;
+
 
 
         Player p;
@@ -102,10 +106,10 @@ namespace WhatAmI
             terminalButton.OnClick += () =>
             {
                 Terminal terminal = new Terminal();
-                prepUD("terminal",terminal);
+                prepUD("2",terminal);
             };
-            ;
-            uds.Add("terminalIcon",terminalButton);
+            
+            uds.Add("1",terminalButton);
 
         }
 
@@ -131,14 +135,15 @@ namespace WhatAmI
             var keyboardState = Keyboard.GetState();
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin();
 
 
             foreach (UD ud in uds.Values)
             {
-                ud.Draw();
+                spriteBatch.Begin();
+                ud.Draw(); 
+                spriteBatch.End();
             }
-
+            spriteBatch.Begin();
             spriteBatch.Draw(mouseTexture, new Vector2(mouseState.X, mouseState.Y), Color.White);
             spriteBatch.End();
 

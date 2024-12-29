@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
-using WhatAmI.Content.src.core;
+using WhatAmI.Content.src.entities;
 
 namespace WhatAmI.Content.src.ui;
 internal class Button : UD

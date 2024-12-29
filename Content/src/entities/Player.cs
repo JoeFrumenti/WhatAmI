@@ -10,16 +10,17 @@ using System;
 
 namespace WhatAmI.Content.src.entities;
 
-internal class Player : GameObject
+internal class Player : UD
 {
     float speed;
     Vector2 pos;
     Texture2D texture;
-    internal Player(Texture2D tex, Vector2 pos) : base(tex,pos)
+    Renderer renderer;
+    internal Player(Texture2D tex, Vector2 pos)
     {
         speed = 100f;
         this.pos = pos;
-        texture = tex;
+        renderer = new Renderer(tex);
     }
     internal Texture2D getTex()
     { return texture; }
