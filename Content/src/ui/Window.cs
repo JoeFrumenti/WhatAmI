@@ -76,7 +76,7 @@ namespace WhatAmI.Content.src.ui
         internal override void Draw()
         {
             Texture2D windowTexture = new Texture2D(Game1.Instance.spriteBatch.GraphicsDevice, 1, 1);
-            windowTexture.SetData(new[] { color});
+            windowTexture.SetData(new[] { Color.White});
 
             int screenWidth = Game1.Instance.GraphicsDevice.Viewport.Width;
             int screenHeight = Game1.Instance.GraphicsDevice.Viewport.Height;
@@ -84,13 +84,21 @@ namespace WhatAmI.Content.src.ui
             int screenX = (int)(anchor.X * screenWidth);
             int screenY = (int)(anchor.Y * screenHeight);
 
+            
+
             int windowHeight = (int)(size.Y * screenHeight);
             int windowWidth = (int)(size.X * screenWidth);
 
-            Game1.Instance.spriteBatch.Draw(windowTexture, new Rectangle(screenX, screenY, windowWidth, windowHeight), color);
-            windowTexture.SetData(new[] {Color.White });
-            Game1.Instance.spriteBatch.Draw(windowTexture, new Rectangle(screenX, screenY-40, windowWidth, 40), Color.White);
+            if (screenY < 40)
+            {
+                screenY = 40;
+                closeButton.setBounds(new Rectangle(screenX + windowWidth - 40,screenY - 40,40,40));
+            }
 
+            Game1.Instance.spriteBatch.Draw(windowTexture, new Rectangle(screenX, screenY, windowWidth, windowHeight), color);
+            Game1.Instance.spriteBatch.Draw(windowTexture, new Rectangle(screenX, screenY-40, windowWidth, 40), Color.Gray);
+
+            
             closeButton.Draw();
         
         }

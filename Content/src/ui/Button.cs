@@ -20,7 +20,10 @@ internal class Button : UD
         this.texture = texture;
         this.bounds = bounds;
     }
-
+    internal void setBounds(Rectangle bounds)
+    {
+        this.bounds = bounds;
+    }
     internal override void Update()
     {
         if (bounds.Contains(Game1.Instance.mouseState.Position) &&

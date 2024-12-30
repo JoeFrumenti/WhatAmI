@@ -26,7 +26,8 @@ namespace WhatAmI
             fileManager = new FileManager();
             name = "textEditor";
 
-            window = new Window(new Vector2(0,0.1f), new Vector2(1,1), Color.White, name);
+            window = new Window(new Vector2(0.01f,0.01f), new Vector2(0.9f,0.9f), Color.White, name);
+            
         }
 
         internal void loadFile(string filePath)
