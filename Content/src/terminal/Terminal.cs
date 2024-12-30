@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using WhatAmI.Content.src.core;
 using WhatAmI.Content.src.entities;
 using WhatAmI.Content.src.orb;
 using WhatAmI.Content.src.ui;
@@ -20,7 +21,7 @@ namespace WhatAmI.Content.src.terminal
         internal Terminal()
         {
             window = new Window(new Vector2(.1f,.1f), new Vector2(0.5f,0.5f),Color.Black);
-            th = new TextHandler(Game1.Instance.Content.Load<SpriteFont>("fonts/Courier"), window.getBottomLeft(new Vector2(0.01f,0.01f)));
+            th = new TextHandler(Game1.Instance.Content.Load<SpriteFont>("fonts/Courier"), window.getTopRight(new Vector2(0.5f,0.5f)));
             th.moveAnchor(new Vector2(0,-1*th.getTextHeight()));
             orb = new Orb();
             cd = new CD();
