@@ -13,6 +13,7 @@ internal class TextHandler : UD
     private KeyboardState previousKeyboardState;
     private List<string> prefixes = new List<string>{""};
     private string prefix = "";
+    private Color color;
 
     //
     private int yOffset = 0;   //vertical position
@@ -83,10 +84,11 @@ internal class TextHandler : UD
         //yOffset++;
     }
 
-    public TextHandler(SpriteFont font, Vector2 anch)
+    public TextHandler(SpriteFont font, Vector2 anch, Color color)
     {
         this.font = font;
         this.anchor = anch;
+        this.color = color;
     }
 
     
@@ -251,7 +253,7 @@ internal class TextHandler : UD
         DrawCursor(Game1.Instance.spriteBatch);
         for(int i = 0; i < lines.Count; i++)
         {
-            Game1.Instance.spriteBatch.DrawString(font, prefixes[i] + lines[i], anchor + new Vector2(0,textHeight * i), Color.White);
+            Game1.Instance.spriteBatch.DrawString(font, prefixes[i] + lines[i], anchor + new Vector2(0,textHeight * i), color);
         }
     }
 
@@ -271,11 +273,11 @@ internal class TextHandler : UD
 
             // Draw cursor (a simple rectangle)
             Texture2D cursorTexture = new Texture2D(spriteBatch.GraphicsDevice, 1, 1);
-            cursorTexture.SetData(new[] { Color.White });
+            cursorTexture.SetData(new[] { color });
 
             textWidth = font.MeasureString(lines[yOffset].Substring(0, xOffset) + prefixes[yOffset]).X;
 
-            spriteBatch.Draw(cursorTexture, new Rectangle((int)anchor.X + (int)textWidth, (int)anchor.Y + yOffset * textHeight, 2, font.LineSpacing), Color.White);
+            spriteBatch.Draw(cursorTexture, new Rectangle((int)anchor.X + (int)textWidth, (int)anchor.Y + yOffset * textHeight, 2, font.LineSpacing), color);
         }
     }
 }

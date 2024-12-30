@@ -22,7 +22,7 @@ namespace WhatAmI.Content.src.ui
         private Texture2D closeButtonTex;
         internal Button closeButton;
 
-        public Window(Vector2 anch, Vector2 s, Color c) 
+        public Window(Vector2 anch, Vector2 s, Color c, string name) 
         {
             this.anchor = anch;
             this.size = s;
@@ -33,8 +33,11 @@ namespace WhatAmI.Content.src.ui
             Vector2 closeAnchor = getTopRight(new Vector2(0,0)) + new Vector2(-40,-40);
 
             closeButton = new Button(closeButtonTex, new Rectangle((int)closeAnchor.X,(int)closeAnchor.Y,40,40));
-            
 
+            closeButton.OnClick += () =>
+            {
+                Game1.Instance.uds.removeUD(name);
+            };
         }
 
         

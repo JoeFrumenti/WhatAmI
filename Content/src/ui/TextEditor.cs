@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using WhatAmI.Content.src.entities;
+using WhatAmI.Content.src.ui;
 
 namespace WhatAmI
 {
@@ -17,11 +18,15 @@ namespace WhatAmI
         private KeyboardState pk;
         private string currentFileName = "";
 
+        private Window window;
+
         internal TextEditor(SpriteFont font)
         {
-            textHandler = new TextHandler(font, new Vector2(100, 100));
+            textHandler = new TextHandler(font, new Vector2(100, 100),Color.Black);
             fileManager = new FileManager();
             name = "textEditor";
+
+            window = new Window(new Vector2(0,0.1f), new Vector2(1,1), Color.White, name);
         }
 
         internal void loadFile(string filePath)
@@ -53,6 +58,7 @@ namespace WhatAmI
 
         internal override void Update()
         {
+            window.Update();
             textHandler.Update();
             if (Game1.Instance.kh.keyPressed(Keys.Enter)) { 
                 textHandler.handleEnter(); 
@@ -64,6 +70,7 @@ namespace WhatAmI
 
         internal override void Draw()
         {
+            window.Draw();
             textHandler.Draw();
 
             KeyboardState state = Keyboard.GetState();

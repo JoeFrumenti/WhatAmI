@@ -20,20 +20,16 @@ namespace WhatAmI.Content.src.terminal
         private Dictionary<string, Action<string[]>> commands;
         internal Terminal()
         {
-            window = new Window(new Vector2(.1f,.1f), new Vector2(0.5f,0.5f),Color.Black);
+            name = "terminal";
+            window = new Window(new Vector2(.1f,.1f), new Vector2(0.5f,0.5f),Color.Black,name);
 
-            window.closeButton.OnClick += () =>
-            {
-                Game1.Instance.uds.removeUD("terminal");
-            };
-
-            th = new TextHandler(Game1.Instance.Content.Load<SpriteFont>("fonts/Courier"), window.getBottomLeft(new Vector2(0.01f,0.01f)));
+            th = new TextHandler(Game1.Instance.Content.Load<SpriteFont>("fonts/Courier"), window.getBottomLeft(new Vector2(0.01f,0.01f)),Color.White);
             th.moveAnchor(new Vector2(0,-1*th.getTextHeight()));
             orb = new Orb();
             cd = new CD();
             th.setPrefixAtIndex(0, cd.getDir() + ">");
             th.setXOffset(th.getCurrentLine().Length);
-            name = "terminal";
+            
 
             commands = new Dictionary<string, Action<string[]>>
             {
