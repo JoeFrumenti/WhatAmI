@@ -21,7 +21,13 @@ namespace WhatAmI.Content.src.terminal
         internal Terminal()
         {
             window = new Window(new Vector2(.1f,.1f), new Vector2(0.5f,0.5f),Color.Black);
-            th = new TextHandler(Game1.Instance.Content.Load<SpriteFont>("fonts/Courier"), window.getTopRight(new Vector2(0.5f,0.5f)));
+
+            window.closeButton.OnClick += () =>
+            {
+                Game1.Instance.uds.removeUD("terminal");
+            };
+
+            th = new TextHandler(Game1.Instance.Content.Load<SpriteFont>("fonts/Courier"), window.getBottomLeft(new Vector2(0.01f,0.01f)));
             th.moveAnchor(new Vector2(0,-1*th.getTextHeight()));
             orb = new Orb();
             cd = new CD();
@@ -164,6 +170,9 @@ namespace WhatAmI.Content.src.terminal
 
             else
                 th.Update();
+
+
+            window.Update();
 
         }
         internal override void Draw()

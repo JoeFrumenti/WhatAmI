@@ -20,7 +20,7 @@ namespace WhatAmI.Content.src.ui
 
 
         private Texture2D closeButtonTex;
-        private Button closeButton;
+        internal Button closeButton;
 
         public Window(Vector2 anch, Vector2 s, Color c) 
         {
@@ -30,15 +30,14 @@ namespace WhatAmI.Content.src.ui
 
             closeButtonTex = Game1.Instance._graphicsManager.generateTexture("assets\\textures\\ui\\CloseIcon.png");
 
+            Vector2 closeAnchor = getTopRight(new Vector2(0,0)) + new Vector2(-40,-40);
 
-            closeButton = new Button(closeButtonTex, new Rectangle(1,1,40,40));
-
-        }
-
-        internal void xClicked()
-        {
+            closeButton = new Button(closeButtonTex, new Rectangle((int)closeAnchor.X,(int)closeAnchor.Y,40,40));
             
+
         }
+
+        
 
         internal Vector2 getTopRight(Vector2 offset)
         {

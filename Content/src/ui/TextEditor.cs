@@ -21,6 +21,7 @@ namespace WhatAmI
         {
             textHandler = new TextHandler(font, new Vector2(100, 100));
             fileManager = new FileManager();
+            name = "textEditor";
         }
 
         internal void loadFile(string filePath)
