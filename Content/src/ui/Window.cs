@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
+
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,10 +29,11 @@ namespace WhatAmI.Content.src.ui
             int screenWidth = Game1.Instance.GraphicsDevice.Viewport.Width;
             int screenHeight = Game1.Instance.GraphicsDevice.Viewport.Height;
 
-            float bottom = size.Y * screenHeight - anchor.Y * screenHeight;
-            bottom += offset.Y * screenHeight;
+            float bottom = anchor.Y * screenHeight + size.Y * screenHeight;
+            bottom -= offset.Y * screenHeight * size.Y;
 
             float left = anchor.X * screenWidth;
+            left += offset.X * screenWidth * size.X;
             return this.anchor + new Vector2(left,bottom);
         }
 
